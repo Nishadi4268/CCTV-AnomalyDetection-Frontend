@@ -31,13 +31,13 @@ function Signup() {
       setEmailError("Wrong Email Format.");
       return;
     } else {
-      setEmailError(""); // Clear error if format is correct
+      setEmailError(""); 
     }
     if (password !== confirmPassword) {
       setPWError("Passwords do not match.");
       return;
     } else {
-      setPWError(""); // Clear error when passwords match
+      setPWError(""); 
     }
 
     const data = { email, password };
