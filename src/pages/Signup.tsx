@@ -24,26 +24,56 @@ function Signup() {
     setIsEmailValid(emailRegex.test(email));
   }, [email]);
 
-  const handleSignup = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+ const handleSignup = async (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
 
-    if (!isEmailValid) {
-      setEmailError("Wrong Email Format.");
-      return;
-    } else {
-      setEmailError(""); 
-    }
-    if (password !== confirmPassword) {
-      setPWError("Passwords do not match.");
-      return;
-    } else {
-      setPWError(""); 
+  // Validation checks
+  if (!isEmailValid) {
+    setEmailError("Wrong Email Format.");
+    return;
+  } else {
+    setEmailError(""); 
+  }
+  if (password !== confirmPassword) {
+    setPWError("Passwords do not match.");
+    return;
+  } else {
+    setPWError(""); 
+  }
+
+  try {
+    const response = await fetch('http://localhost:5000/api/auth/signup', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email,
+        password,
+        confirmPassword
+      }),
+      credentials: 'include' 
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Signup failed');
     }
 
-    const data = { email, password };
-    console.log("Signup Data:", data);
-    navigate("/");
-  };
+    console.log('Signup successful:', data);
+    navigate("/"); 
+  } catch (error) {
+    console.error('Signup error:', error);
+    if (error instanceof Error) {
+      if (error.message.includes('User already exists')) {
+        setEmailError(error.message);
+      } else {
+        setPWError('Signup failed. Please try again.');
+      }
+    }
+  }
+};
 
   useEffect(() => {
     const handleLoad = () => setLoading(false);
@@ -51,16 +81,6 @@ function Signup() {
 
     return () => window.removeEventListener("load", handleLoad);
   }, []);
-
-  // const handleSignup = async (e: React.FormEvent<HTMLFormElement>) => {
-  //   e.preventDefault();
-  //   if (password !== confirmPassword) {
-  //     alert("Passwords do not match!");
-  //     return;
-  //   }
-  //   const data = { email, password };
-  //   console.log(data);
-  // };
 
   const handleAppleSignin = () => {
     window.location.href = "https://appleid.apple.com/auth/authorize";
