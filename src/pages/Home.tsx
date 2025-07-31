@@ -68,12 +68,7 @@ const Home = () => {
 
     return () => window.removeEventListener("load", handleLoad);
   }, []);
-  // useEffect(() => {
-  //   AOS.init({
-  //     duration: 3000,
-  //     once: true,
-  //   });
-  // }, []);
+
   useEffect(() => {
     AOS.init({
       duration: 1000,
@@ -91,14 +86,6 @@ const Home = () => {
       transition: { duration: 1, ease: "easeOut" }
     }
   };
-
-  // const containerVariants = {
-  //   hidden: { opacity: 0 },
-  //   visible: {
-  //     opacity: 1,
-  //     transition: { staggerChildren: 0.2 },
-  //   },
-  // };
 
   const floatingEffect = {
     rest: { y: 0 },
@@ -122,9 +109,9 @@ const Home = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setActivePhase((prev) => (prev + 1) % phases.length);
-    }, 3000); // Auto-swipe every 3 seconds
+    }, 3000);
 
-    return () => clearInterval(interval); // Cleanup on unmount
+    return () => clearInterval(interval);
   }, []);
   const images = [
     { src: im1, text: "Abuse Detection" },
@@ -369,13 +356,14 @@ const Home = () => {
             <div className="flex flex-col space-y-[28px] 2xl:space-y-10 items-center lg:items-start justify-between ">
               <div className="flex flex-col space-y-[28px] lg:space-y-2 items-center text-center md:text-start lg:items-start ">
                 <span className="font-productsans text-[16px] lg:text-[24px]">
-                  Unveil the adventurous experience with Ella
+                  Smarter Surveillance with Real-Time Anomaly Detection{" "}
                 </span>
                 <span className="font-productsansregular text-sm text-center lg:text-start px-4 md:px-0">
-                  One of the world's top surfing spots, Arugam Bay offers
-                  perfect waves for both beginners and advanced surfers.{" "}
+                  Enhance public safety and operational efficiency by
+                  automatically detecting suspicious or abnormal activities
+                  using our intelligent CCTV monitoring system.
                 </span>
-              </div>{" "}
+              </div>
               <Link to="/destination">
                 <div
                   className="flex hover:opacity-90 

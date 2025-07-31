@@ -12,6 +12,7 @@ function Signin() {
   // const [password, setPassword] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
+  const [pwError, setPWError] = useState("");
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
 
@@ -22,21 +23,71 @@ function Signin() {
     return () => window.removeEventListener("load", handleLoad);
   }, []);
 
-  const handleSignin = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+ const handleSignin = async (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
 
-    // Email format validation (allows any domain)
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    if (!emailRegex.test(email)) {
-      setEmailError("Wrong Email Format.");
-      return;
-    } else {
-      setEmailError(""); // Clear error if format is correct
+  // Email format validation
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  if (!emailRegex.test(email)) {
+    setEmailError("Wrong Email Format.");
+    return;
+  } else {
+    setEmailError("");
+  }
+
+  // Password validation
+  if (!password) {
+    setPWError("Please enter your password");
+    return;
+  } else {
+    setPWError("");
+  }
+
+  try {
+    setLoading(true);
+
+    const response = await fetch('http://localhost:5000/api/auth/signin', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+      body: JSON.stringify({
+        email: email.toLowerCase().trim(),
+        password: password.trim()
+      }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Sign-in failed');
     }
 
-    const data = { email, password };
-    console.log(data);
-  };
+    // Successful sign-in
+    console.log('Sign-in successful:', data);
+    
+    if (data.token) {
+      localStorage.setItem('authToken', data.token);
+    }
+
+    navigate('/');
+
+  } catch (error) {
+    console.error('Sign-in error:', error);
+    
+    // Type-safe error handling
+    if (error instanceof Error) {
+      setPWError(error.message || 'Sign-in failed. Please try again.');
+    } else {
+      setPWError('An unexpected error occurred');
+    }
+  } finally {
+    setLoading(false);
+  }
+};
+
+
 
   const handleAppleSignin = () => {
     window.location.href = "https://appleid.apple.com/auth/authorize";
@@ -73,9 +124,8 @@ function Signin() {
                       <Input
                         type="email"
                         placeholder="Enter Your Email"
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                          setEmail(e.target.value)
-                        }
+                        onChange={(e) => setEmail(e.target.value)}
+                      disabled={loading}
                       />
                       {emailError && (
                         <span className="text-red-500 text-sm">
@@ -92,11 +142,12 @@ function Signin() {
                       <Input
                         type="password"
                         placeholder="Enter Your Password"
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                          setPassword(e.target.value)
-                        }
+                        onChange={(e) => setPassword(e.target.value)}
+                      disabled={loading}
                       />
+                      {pwError && <div className="error">{pwError}</div>}
                     </div>
+                    
                   </div>
                   <h1
                     className="xl:mt-[2px] font-productsansregular text-end w-full cursor-pointer hover:opacity-75 hover:text-[#1A3A6D] text-10 lg:text-12"
