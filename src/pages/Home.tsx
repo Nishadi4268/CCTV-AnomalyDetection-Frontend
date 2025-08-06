@@ -5,10 +5,12 @@ import { HiOutlineArrowNarrowRight } from "react-icons/hi";
 import image from "/images/home/img123.jpg";
 import imagemob from "/images/home/imagemob.jpg";
 import dis1 from "/images/home/dis1.png";
-import devil from "/images/home/devil.png";
-import devilmob from "/images/home/devilmob.webp";
-import dancer from "/images/home/dancer.png";
-import elephant from "/images/home/elephant.png";
+import cctv from "/images/home/cctv.jpg";
+import cctvM from "/images/home/cctvM.jpg";
+import family from "/images/home/family.jpg";
+import pet from "/images/home/pet.jpg";
+import vehicle from "/images/home/vehicle.png";
+import safe from "/images/home/safe.png";
 import des1 from "/images/home/des1.png";
 import des2 from "/images/home/des2.png";
 import des3 from "/images/home/des3.png";
@@ -144,7 +146,6 @@ const Home = () => {
         key={card.id}
         image={card.imageSrc}
         title={card.title}
-        location={card.location}
         description={card.description}
       />
     </div>
@@ -295,7 +296,7 @@ const Home = () => {
             <div className="flex flex-col xl:hidden text-center justify-center items-center space-y-4">
               <span className="flex flex-col text-[16px] lg:text-[24px]">
                 AI-Driven Surveillance: Accurate Anomaly Detection, Anytime,
-                Anywhere{" "}
+                Anywhere
               </span>
             </div>
 
@@ -380,7 +381,6 @@ const Home = () => {
                   key={card.id}
                   image={card.imageSrc}
                   title={card.title}
-                  location={card.location}
                   description={card.description}
                 />
               </div>
@@ -416,19 +416,20 @@ const Home = () => {
             className="flex flex-col justify-center space-y-[28px] "
           >
             <div className="justify-center text-center flex font-productsans text-[16px] lg:text-[24px]">
-              Immerse Sri Lanka's rich tapestry of traditions, festivals, &
-              heritage
+              Smarter Surveillance That Learns From You{" "}
             </div>
             <div className="flex flex-col lg:flex-row space-y-[16px] lg:space-y-0 lg:space-x-[46px] w-full items-center lg:items-stretch">
               <div className="flex flex-col w-full gap-y-4 lg:w-[584px] md:h-[340px]   justify-between ">
-                <img src={devil} className="hidden md:flex h-[258px]" />
-                <img src={devilmob} className="flex md:hidden" />
+                <img src={cctvM} className="hidden md:flex rounded-2xl" />
+                <img src={cctv} className="flex md:hidden rounded-2xl" />
                 <div className="flex w-full justify-between items-end">
                   <span className="flex w-[70%] lg:w-[86%] font-productsansregular text-[12px] lg:text-[14px]">
-                    Sri Lanka's cultural festivals are vibrant celebrations of
-                    the island's rich heritage and diversity.Each festival
-                    offers a glimpse into Sri Lanka's deep-rooted traditions and
-                    its harmonious blend of cultures.
+                    Our intelligent CCTV system doesn’t just detect anomalies—it
+                    adapts. By allowing you to provide feedback on familiar
+                    faces, vehicles, pets, or daily visitors, the system learns
+                    what's normal in your environment. This reduces false alerts
+                    and gives you more accurate monitoring tailored to your
+                    lifestyle.
                   </span>
                   <Link to="/culture">
                     {/* <img src={arrow} className="w-9 h-9 " /> */}
@@ -442,26 +443,46 @@ const Home = () => {
               <div className="flex md:w-[1090px] ">
                 <Marquee autoFill>
                   <div className="grid grid-cols-4 grid-rows-1 gap-x-[24px] lg:gap-x-[43px] justify-center h-64 md:h-[340px] w-full px-[12px]">
-                    <img
-                      src={dancer}
-                      className="h-full object-cover rounded-[10px] "
-                      alt="Elephant"
-                    />
-                    <img
-                      src={dancer}
-                      className="h-full object-cover rounded-[10px]"
-                      alt="Elephant"
-                    />
-                    <img
-                      src={elephant}
-                      className="h-full object-cover rounded-[10px]"
-                      alt="Dancer"
-                    />
-                    <img
-                      src={elephant}
-                      className="h-full object-cover rounded-[10px]"
-                      alt="Elephant"
-                    />
+                    <div className="relative font-productsansregular text-14 hover:text-16 duration-500">
+                      <img
+                        src={family}
+                        className="h-full object-cover rounded-[10px] "
+                        alt="Elephant"
+                      />
+                      <h1 className="absolute bottom-0 bg-emerald-500 bg-opacity-80 text-center rounded-b-xl py-[10px] w-full ">
+                        Recognized Family Members{" "}
+                      </h1>
+                    </div>
+                    <div className="relative font-productsansregular text-14 hover:text-16 duration-500">
+                      <img
+                        src={pet}
+                        className="h-full object-cover rounded-[10px]"
+                        alt="Elephant"
+                      />
+                      <h1 className="absolute bottom-0 bg-emerald-500 bg-opacity-80 text-center rounded-b-xl py-[10px] w-full ">
+                        Known Pets{" "}
+                      </h1>
+                    </div>
+                    <div className="relative font-productsansregular text-14 hover:text-16 duration-500">
+                      <img
+                        src={vehicle}
+                        className="h-full w-[101%] object-cover rounded-[10px]"
+                        alt="Dancer"
+                      />
+                      <h1 className="absolute bottom-0 bg-emerald-500 bg-opacity-80 text-center rounded-b-xl py-[10px] w-full ">
+                        Trusted Vehicles{" "}
+                      </h1>
+                    </div>
+                    <div className="relative font-productsansregular text-14 hover:text-16 duration-500">
+                      <img
+                        src={safe}
+                        className="h-full w-[101%] object-cover rounded-[10px]"
+                        alt="Elephant"
+                      />
+                      <h1 className="absolute bottom-0 bg-emerald-500 bg-opacity-80 text-center rounded-b-xl py-[10px] w-full ">
+                        Smart Feedback{" "}
+                      </h1>
+                    </div>
                   </div>
                 </Marquee>
               </div>

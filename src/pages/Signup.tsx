@@ -10,6 +10,8 @@ import PageLoader from "@/components/PageLoader";
 
 function Signup() {
   const [email, setEmail] = useState("");
+  const [fname, setFname] = useState("");
+  const [lname, setLname] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
@@ -24,56 +26,58 @@ function Signup() {
     setIsEmailValid(emailRegex.test(email));
   }, [email]);
 
- const handleSignup = async (e: React.FormEvent<HTMLFormElement>) => {
-  e.preventDefault();
+  const handleSignup = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
 
-  // Validation checks
-  if (!isEmailValid) {
-    setEmailError("Wrong Email Format.");
-    return;
-  } else {
-    setEmailError(""); 
-  }
-  if (password !== confirmPassword) {
-    setPWError("Passwords do not match.");
-    return;
-  } else {
-    setPWError(""); 
-  }
-
-  try {
-    const response = await fetch('http://localhost:5000/api/auth/signup', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email,
-        password,
-        confirmPassword
-      }),
-      credentials: 'include' 
-    });
-
-    const data = await response.json();
-
-    if (!response.ok) {
-      throw new Error(data.message || 'Signup failed');
+    // Validation checks
+    if (!isEmailValid) {
+      setEmailError("Wrong Email Format.");
+      return;
+    } else {
+      setEmailError("");
+    }
+    if (password !== confirmPassword) {
+      setPWError("Passwords do not match.");
+      return;
+    } else {
+      setPWError("");
     }
 
-    console.log('Signup successful:', data);
-    navigate("/"); 
-  } catch (error) {
-    console.error('Signup error:', error);
-    if (error instanceof Error) {
-      if (error.message.includes('User already exists')) {
-        setEmailError(error.message);
-      } else {
-        setPWError('Signup failed. Please try again.');
+    try {
+      const response = await fetch("http://localhost:5000/api/auth/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          email,
+          fname,
+          lname,
+          password,
+          confirmPassword
+        }),
+        credentials: "include"
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "Signup failed");
+      }
+
+      console.log("Signup successful:", data);
+      navigate("/");
+    } catch (error) {
+      console.error("Signup error:", error);
+      if (error instanceof Error) {
+        if (error.message.includes("User already exists")) {
+          setEmailError(error.message);
+        } else {
+          setPWError("Signup failed. Please try again.");
+        }
       }
     }
-  }
-};
+  };
 
   useEffect(() => {
     const handleLoad = () => setLoading(false);
@@ -93,7 +97,7 @@ function Signup() {
         {/* left side */}
         <div
           className="h-full flex flex-col justify-center 2xl:items-center px-[15px] sm:px-[100px] xl:items-center md:px-[160px] lg:px-[60px] 2xl:px-[196px] 
-   min-h-screen md:py-[126px]  lg:py-[40px]  2xl:py-[100px] w-full"
+   min-h-screen md:py-[126px] lg:py-[40px] 2xl:py-[100px] w-full"
         >
           <div className="flex flex-col lg:space-y-[30px] 2xl:space-y-[60px]  xl:w-[540px] ">
             <div className="font-productsans text-[32px] lg:flex hidden">
@@ -107,14 +111,42 @@ function Signup() {
             </div>
             {/* content */}
             <div className="space-y-[53px] lg:space-y-[40px] w-full">
-              {/* email */}
               <form onSubmit={handleSignup}>
-                {" "}
                 <div className="space-y-[30px] md:space-y-[48px]">
                   <div className="space-y-[19px] xl:space-y-[29px] flex flex-col  ">
+                    <div className="flex flex-row justify-between w-full gap-[10px]">
+                      {/* first name */}
+                      <div className="flex flex-col w-full space-y-[6px] md:space-y-[10px]  ">
+                        <span className="text-[12px] md:text-[14px] font-productsansregular">
+                          First Name
+                        </span>
+                        <Input
+                          type="text"
+                          placeholder="Enter Your First Name"
+                          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                            setFname(e.target.value)
+                          }
+                        />
+                      </div>
+
+                      {/* Last name */}
+                      <div className="flex flex-col w-full space-y-[6px] md:space-y-[10px]  ">
+                        <span className="text-[12px] md:text-[14px] font-productsansregular">
+                          Last Name
+                        </span>
+                        <Input
+                          type="text"
+                          placeholder="Enter Your Last Name"
+                          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                            setLname(e.target.value)
+                          }
+                        />
+                      </div>
+                    </div>
+
+                    {/* email */}
                     <div className="flex flex-col w-full space-y-[6px] md:space-y-[10px]  ">
                       <span className="text-[12px] md:text-[14px] font-productsansregular">
-                        {" "}
                         Email
                       </span>
                       <Input
@@ -124,6 +156,9 @@ function Signup() {
                           setEmail(e.target.value)
                         }
                       />
+                      <h1 className="text-[12px] md:text-14 text-end font-semibold hover:cursor-pointer hover:opacity-70 underline text-blue-600">
+                        Verify
+                      </h1>
                       {emailError && (
                         <span className="text-red-500 text-sm font-productsansregular">
                           {emailError}
@@ -131,6 +166,7 @@ function Signup() {
                       )}
                     </div>
 
+                    {/* password */}
                     <div className="flex flex-col w-full space-y-[6px] md:space-y-[10px]">
                       <span className="text-[12px] md:text-[14px] font-productsansregular">
                         {" "}
@@ -145,6 +181,7 @@ function Signup() {
                       />
                     </div>
 
+                    {/* confirm password */}
                     <div className="flex flex-col w-full space-y-[6px] md:space-y-[10px]">
                       <span className="text-[12px] md:text-[14px] font-productsansregular">
                         Confirm Password

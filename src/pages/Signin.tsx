@@ -136,7 +136,6 @@ function Signin() {
 
                     <div className="flex flex-col w-full space-y-[6px] md:space-y-[10px]">
                       <span className="text-12 md:text-[14px] font-productsansregular">
-                        {" "}
                         Password
                       </span>
                       <Input
