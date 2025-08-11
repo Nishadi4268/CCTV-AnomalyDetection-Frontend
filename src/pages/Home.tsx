@@ -4,17 +4,17 @@ import { HiArrowUpRight } from "react-icons/hi2";
 import { HiOutlineArrowNarrowRight } from "react-icons/hi";
 import image from "/images/home/img123.jpg";
 import imagemob from "/images/home/imagemob.jpg";
-import dis1 from "/images/home/dis1.png";
+import dis1 from "/images/home/dis1.jpg";
 import cctv from "/images/home/cctv.jpg";
 import cctvM from "/images/home/cctvM.jpg";
 import family from "/images/home/family.jpg";
 import pet from "/images/home/pet.jpg";
 import vehicle from "/images/home/vehicle.png";
 import safe from "/images/home/safe.png";
-import des1 from "/images/home/des1.png";
-import des2 from "/images/home/des2.png";
-import des3 from "/images/home/des3.png";
-import des4 from "/images/home/des4.png";
+import des1 from "/images/home/des1.jpg";
+import des2 from "/images/home/des2.jpg";
+import des3 from "/images/home/des3.jpg";
+import des4 from "/images/home/des4.jpg";
 import sigiri from "/images/home/sigiri.png";
 import sigirimob from "/images/home/sigirimob.png";
 import CategorySwiper from "@/components/category/CategorySwiper";
@@ -301,7 +301,7 @@ const Home = () => {
             </div>
 
             <div
-              className="w-full grid grid-cols-1 xs400:grid-cols-2 xs500:grid-cols-3 lg:grid-cols-5  grid-rows-2 md:grid-rows-2 lg:grid-rows-1
+              className="w-full grid grid-cols-1 xs400:grid-cols-2 xs500:grid-cols-3 lg:grid-cols-5 grid-rows-2 md:grid-rows-2 lg:grid-rows-1
             gap-x-[12px] xl:w-[70%] justify-between gap-y-5 lg:gap-y-10 lg:space-y-0"
             >
               {packagesitems
@@ -418,12 +418,12 @@ const Home = () => {
             <div className="justify-center text-center flex font-productsans text-[16px] lg:text-[24px]">
               Smarter Surveillance That Learns From You{" "}
             </div>
-            <div className="flex flex-col lg:flex-row space-y-[16px] lg:space-y-0 lg:space-x-[46px] w-full items-center lg:items-stretch">
-              <div className="flex flex-col w-full gap-y-4 lg:w-[584px] md:h-[340px]   justify-between ">
+            <div className="flex flex-col lg:flex-row gap-y-[16px] lg:gap-y-0 lg:space-x-[46px] w-full items-center lg:items-stretch">
+              <div className="flex flex-col w-full gap-y-4 lg:w-[584px] h-full lg:h-[340px] justify-between ">
                 <img src={cctvM} className="hidden md:flex rounded-2xl" />
                 <img src={cctv} className="flex md:hidden rounded-2xl" />
                 <div className="flex w-full justify-between items-end">
-                  <span className="flex w-[70%] lg:w-[86%] font-productsansregular text-[12px] lg:text-[14px]">
+                  <span className="flex font-productsansregular text-[12px] lg:text-[14px]">
                     Our intelligent CCTV system doesn’t just detect anomalies—it
                     adapts. By allowing you to provide feedback on familiar
                     faces, vehicles, pets, or daily visitors, the system learns
@@ -431,16 +431,10 @@ const Home = () => {
                     and gives you more accurate monitoring tailored to your
                     lifestyle.
                   </span>
-                  <Link to="/culture">
-                    {/* <img src={arrow} className="w-9 h-9 " /> */}
-                    <div className="bg-[#1A3A6D] rounded-full p-[10px] hover:bg-black">
-                      <GoArrowUpRight className="text-white" />
-                    </div>
-                  </Link>
                 </div>
               </div>
 
-              <div className="flex md:w-[1090px] ">
+              <div className="flex md:w-[1090px]">
                 <Marquee autoFill>
                   <div className="grid grid-cols-4 grid-rows-1 gap-x-[24px] lg:gap-x-[43px] justify-center h-64 md:h-[340px] w-full px-[12px]">
                     <div className="relative font-productsansregular text-14 hover:text-16 duration-500">
@@ -489,31 +483,6 @@ const Home = () => {
             </div>
           </div>
 
-          {/* card swiper */}
-          <div
-            data-aos="fade-up"
-            data-aos-anchor-placement="top-center"
-            className="relative lg:-mx-[30px] xl:-mx-[100px] "
-          >
-            <CategorySwiper
-              text={phases[activePhase].text}
-              image={phases[activePhase].image}
-              imageMobile={phases[activePhase].imageMobile}
-            />
-            <div className="absolute bottom-[20px] md:bottom-[75px] flex space-x-[4.05px] sm:space-x-[8px] justify-center items-center w-full">
-              {phases.map((_, index) => (
-                <div
-                  key={index}
-                  className={`bg-white border-2 rounded-xl ${
-                    activePhase === index
-                      ? "w-[15px] h-[7px] md:w-[21px] md:h-[10px]"
-                      : "w-[7px] h-[7px] md:w-[10px] md:h-[10px]"
-                  } cursor-pointer`}
-                  onClick={() => setActivePhase(index)}
-                ></div>
-              ))}
-            </div>
-          </div>
           {/* iconic Enchanting Destination */}
           <div
             data-aos="fade-up"
@@ -522,10 +491,11 @@ const Home = () => {
           >
             <div className=" flex lg:hidden flex-col w-full space-y-[28px] ">
               <span className="flex lg:hidden font-productsans text-[16px] text-center">
-                Discover Sri Lanka's Most Iconic and Enchanting Destinations
+                Experience the Future of Intelligent Surveillance — Detect the
+                Undetectable{" "}
               </span>
-              <div className="flex lg:w-[55%]">
-                <img src={dis1} />
+              <div className="flex w-full border-4 xl:w-[55%]">
+                <img src={dis1} className="max-h-[400px] w-full"/>
               </div>
             </div>
             <div className="hidden lg:flex lg:w-[50%]">
@@ -533,7 +503,8 @@ const Home = () => {
             </div>
             <div className="flex flex-col justify-between w-full space-y-5 ">
               <span className="hidden lg:flex font-productsans lg:text-[24px]">
-                Discover Sri Lanka's Most Iconic and Enchanting Destinations
+                Experience the Future of Intelligent Surveillance — Detect the
+                Undetectable{" "}
               </span>
               <div className="flex flex-col lg:flex-row justify-center w-full space-y-[16px] lg:space-y-0 lg:space-x-10 ">
                 <div className="grid grid-cols-4 grid-rows-1 lg:grid-cols-2 lg:grid-rows-2 gap-x-[6px] lg:gap-y-[16px] xl:gap-x-[46px] xl:gap-y-[46px] lg:w-[45%]">
@@ -556,26 +527,31 @@ const Home = () => {
                 </div>
                 <div className="flex flex-col lg:w-[55%] space-y-4 justify-between items-start">
                   <p className="font-productsansregular leading-6 2xl:leading-6 text-xs lg:text-[14px] justify-center text-justify w-full">
-                    Sri Lanka, an island of unparalleled beauty, is home to some
-                    of the world's most captivating destinations. Explore
-                    Sigiriya, the ancient rock fortress known as the "Eighth
-                    Wonder of the World," with its breathtaking views and
-                    historic frescoes. Discover the serene beaches of Mirissa
-                    and Arugam Bay, perfect for surfing and whale watching.
-                    Wander through the lush tea plantations and cool climate of
-                    Nuwara Eliya, fondly called "Little England." In Ella, hike
-                    to Little Adam's Peak or visit the iconic Nine Arches
-                    Bridge. Dive into the rich culture and history of Kandy,
-                    home to the sacred Temple of the Tooth Relic, or explore the
-                    vibrant streets of Colombo with its modern charm and
-                    colonial heritage. For wildlife enthusiasts, Yala National
-                    Park offers thrilling safaris to spot leopards, elephants,
-                    and exotic birds. From its golden beaches to misty
-                    mountains, Sri Lanka promises an unforgettable adventure at
-                    every turn.
+                    Our next-generation AI-powered CCTV anomaly detection system
+                    goes beyond ordinary surveillance—it identifies unusual
+                    events and anomalies that even humans might miss. Built with
+                    advanced machine learning, our system continuously learns to
+                    recognize new and unseen anomalies, adapting to evolving
+                    threats in real time. From detecting potential accidents to
+                    spotting suspicious activities, our platform takes immediate
+                    action—alerting the right people at the right time. If an
+                    accident occurs, the system instantly notifies emergency
+                    services like 1990 Suwa Seriya. In the case of a fire, it
+                    sends precise location details directly to the Fire
+                    Department. This rapid, automated response can save lives,
+                    prevent damage, and ensure public safety. Our solution is
+                    designed with unmatched accuracy and confidence, minimizing
+                    false alarms while ensuring that every real threat gets the
+                    attention it deserves. Whether safeguarding public transport
+                    stations, hospitals, schools, or residential areas, our
+                    surveillance doesn’t just watch—it acts. By combining
+                    real-time monitoring, intelligent feedback learning, and
+                    direct emergency integration, we provide a security system
+                    that isn’t just reactive—it’s proactive, predictive, and
+                    relentlessly reliable. With our technology, you don’t just
+                    monitor spaces—you protect them with precision.
                   </p>
                   <Link to="/destination">
-                    {/* <img src={arrow} className="w-7 2xl:w-10" /> */}
                     <div className="bg-[#1A3A6D] rounded-full p-[10px] hover:bg-black">
                       <GoArrowUpRight className="text-white" />
                     </div>
@@ -612,36 +588,6 @@ const Home = () => {
               <div className="relative flex flex-col sm:hidden items-center w-full ">
                 <Carousel components={data} slidesToShow={1} bgColor="white" />
               </div>
-            </div>
-          </div>
-          {/* sigiri */}
-          <div
-            data-aos="fade-up"
-            data-aos-anchor-placement="top-center"
-            className="flex flex-col lg:-mx-[30px]  xl:-mx-[100px] gap-y-[16px] lg:gap-y-0 lg:flex-row"
-          >
-            <img src={sigiri} className="hidden lg:flex w-[70%]" />
-            <img src={sigirimob} className=" flex lg:hidden rounded-2xl" />
-            <div className=" justify-center space-y-[20px] lg:w-[30%] 2xl:w-full items-center lg:items-start lg:px-[100px] lg:py-[115px] flex flex-col lg:space-y-4">
-              <span className="font-productsans text-center lg:text-start text-[16px] lg:text-[24px] leading-[20px] lg:leading-[32px]">
-                Your adventure is just a click away! Secure your spot and start
-                exploring the wonders.
-              </span>
-              <Link to="/destination">
-                <button className="flex items-center btn-4 hover:text-black space-x-3 w-[158px] md:w-[171px] h-[28px] md:h-[40px] justify-center  font-productsans  text-white">
-                  <span className="lg:text-[14px] text-[12px] cursor-pointer">
-                    {" "}
-                    Explore
-                  </span>
-                  <HiOutlineArrowNarrowRight className="w-6 h-6" />
-                </button>
-              </Link>
-              {/* <div className="flex lg:hidden"> <Link to="/category">
-                <Book_Button
-                  textColor="text-white"
-                  width="w-[158px] h-[28px]"
-                /></Link>
-              </div> */}
             </div>
           </div>
         </div>

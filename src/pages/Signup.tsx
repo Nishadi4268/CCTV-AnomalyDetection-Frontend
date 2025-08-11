@@ -8,10 +8,18 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import PageLoader from "@/components/PageLoader";
 
+import {
+  InputOTP,
+  InputOTPGroup,
+  InputOTPSeparator,
+  InputOTPSlot
+} from "@/components/custom-ui/InputOTP";
+
 function Signup() {
   const [email, setEmail] = useState("");
-  const [fname, setFname] = useState("");
-  const [lname, setLname] = useState("");
+  const [firstName, setFirstName] = useState('');
+const [lastName, setLastName] = useState('');
+
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
@@ -19,6 +27,7 @@ function Signup() {
   const [isEmailValid, setIsEmailValid] = useState(false);
   const [emailError, setEmailError] = useState("");
   const [pwError, setPWError] = useState("");
+const [showOTP, setShowOTP] = useState(false);
 
   // Validate email format using RegEx
   useEffect(() => {
@@ -26,58 +35,67 @@ function Signup() {
     setIsEmailValid(emailRegex.test(email));
   }, [email]);
 
-  const handleSignup = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+const handleSignup = async (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
 
-    // Validation checks
-    if (!isEmailValid) {
-      setEmailError("Wrong Email Format.");
-      return;
-    } else {
-      setEmailError("");
+  // Basic validation
+  if (!isEmailValid) {
+    setEmailError("Wrong Email Format.");
+    return;
+  } else {
+    setEmailError("");
+  }
+
+  if (password !== confirmPassword) {
+    setPWError("Passwords do not match.");
+    return;
+  } else {
+    setPWError("");
+  }
+
+  if (!firstName || !lastName || !email || !password || !confirmPassword) {
+    setPWError("Please fill in all fields.");
+    return;
+  }
+
+  try {
+    const response = await fetch("http://localhost:5000/api/auth/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      credentials: "include",
+      body: JSON.stringify({
+        firstName: firstName.trim(),
+        lastName: lastName.trim(),
+        email: email.toLowerCase().trim(),
+        password: password.trim(),
+        confirmPassword: confirmPassword.trim()
+      })
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || "Signup failed");
     }
-    if (password !== confirmPassword) {
-      setPWError("Passwords do not match.");
-      return;
-    } else {
-      setPWError("");
-    }
 
-    try {
-      const response = await fetch("http://localhost:5000/api/auth/signup", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          email,
-          fname,
-          lname,
-          password,
-          confirmPassword
-        }),
-        credentials: "include"
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message || "Signup failed");
+    console.log("Signup successful:", data);
+    navigate("/");
+  } catch (error) {
+    console.error("Signup error:", error);
+    if (error instanceof Error) {
+      if (error.message.includes("User already exists")) {
+        setEmailError(error.message);
+      } else {
+        setPWError(error.message || "Signup failed. Please try again.");
       }
-
-      console.log("Signup successful:", data);
-      navigate("/");
-    } catch (error) {
-      console.error("Signup error:", error);
-      if (error instanceof Error) {
-        if (error.message.includes("User already exists")) {
-          setEmailError(error.message);
-        } else {
-          setPWError("Signup failed. Please try again.");
-        }
-      }
+    } else {
+      setPWError("Unexpected error occurred");
     }
-  };
+  }
+};
+
 
   useEffect(() => {
     const handleLoad = () => setLoading(false);
@@ -99,15 +117,16 @@ function Signup() {
           className="h-full flex flex-col justify-center 2xl:items-center px-[15px] sm:px-[100px] xl:items-center md:px-[160px] lg:px-[60px] 2xl:px-[196px] 
    min-h-screen md:py-[126px] lg:py-[40px] 2xl:py-[100px] w-full"
         >
-          <div className="flex flex-col lg:space-y-[30px] 2xl:space-y-[60px]  xl:w-[540px] ">
-            <div className="font-productsans text-[32px] lg:flex hidden">
-              Welcome to the Thabili
+          <div className="items-center flex flex-col lg:space-y-[30px] 2xl:space-y-[60px]  xl:w-[540px] ">
+            <div className=" text-center font-productsans text-[32px] lg:flex hidden">
+              Welcome
             </div>
-            <div className="flex flex-col font-productsans text-[20px] md:text-[32px] lg:hidden mb-[40px] ">
-              Welcome to the <br />
+            <div className="text-center flex flex-col font-productsans text-[20px] md:text-[32px] lg:hidden mb-[40px] ">
+              Welcome 
+              {/* to the <br />
               <span className="text-[36px] md:text-[60px] -mt-3 md:-mt-4">
                 Thabili
-              </span>
+              </span> */}
             </div>
             {/* content */}
             <div className="space-y-[53px] lg:space-y-[40px] w-full">
@@ -124,7 +143,7 @@ function Signup() {
                           type="text"
                           placeholder="Enter Your First Name"
                           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                            setFname(e.target.value)
+                            setFirstName(e.target.value)
                           }
                         />
                       </div>
@@ -138,7 +157,7 @@ function Signup() {
                           type="text"
                           placeholder="Enter Your Last Name"
                           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                            setLname(e.target.value)
+                            setLastName(e.target.value)
                           }
                         />
                       </div>
@@ -156,9 +175,28 @@ function Signup() {
                           setEmail(e.target.value)
                         }
                       />
-                      <h1 className="text-[12px] md:text-14 text-end font-semibold hover:cursor-pointer hover:opacity-70 underline text-blue-600">
+                      <h1 onClick={() => setShowOTP(true)}
+                      className="text-[12px] md:text-14 text-end font-semibold hover:cursor-pointer hover:opacity-70 underline text-blue-600">
                         Verify
                       </h1>
+                      {/* OTP */}
+                      {showOTP && (
+                      <div className="w-full ">
+                        <InputOTP maxLength={6}>
+                          <InputOTPGroup>
+                            <InputOTPSlot index={0} />
+                            <InputOTPSlot index={1} />
+                            <InputOTPSlot index={2} />
+                          </InputOTPGroup>
+                          <InputOTPSeparator />
+                          <InputOTPGroup>
+                            <InputOTPSlot index={3} />
+                            <InputOTPSlot index={4} />
+                            <InputOTPSlot index={5} />
+                          </InputOTPGroup>
+                        </InputOTP>
+                      </div>
+                        )}
                       {emailError && (
                         <span className="text-red-500 text-sm font-productsansregular">
                           {emailError}

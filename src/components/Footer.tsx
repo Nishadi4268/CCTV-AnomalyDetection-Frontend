@@ -35,7 +35,7 @@ function Footer() {
 
           {/* logo */}
           <div className="w-1/3 flex items-center justify-center">
-            <img src="/images/logo.png" className="w-[70%] 2xl:w-[50%]" />
+            <img src="/icon.webp" className="w-[70%] 2xl:w-[50%]" />
           </div>
 
           {/* contact for web */}
@@ -87,6 +87,7 @@ function Footer() {
                 width="w-[150px] md:w-[171px] text-14"
                 height="h-[40px]"
                 btn4="btn-4"
+                text="Subscribe"
               />
             </Link>
           </div>
@@ -133,7 +134,7 @@ function Footer() {
                     location.pathname === "/destination" ? "text-[#1A3A6D]" : ""
                   } hover:text-[#1A3A6D]`}
                 >
-                  Explore Sri Lanka
+                  Explore
                 </h1>
               </Link>
             </div>
@@ -174,7 +175,7 @@ function Footer() {
                     location.pathname === "/destination" ? "text-[#1A3A6D]" : ""
                   } hover:text-[#1A3A6D]`}
                 >
-                  Explore Sri Lanka
+                  Explore
                 </h1>
               </Link>
               <Link to="/activities">
@@ -209,7 +210,7 @@ function Footer() {
                     location.pathname === "/culture" ? "text-[#1A3A6D]" : ""
                   } hover:text-[#1A3A6D]`}
                 >
-                  Culture
+                  Security
                 </h1>
               </Link>
               <Link to="/activities">
@@ -221,7 +222,7 @@ function Footer() {
                       : ""
                   } hover:text-[#1A3A6D]`}
                 >
-                  Activities
+                  Feature
                 </h1>
               </Link>
             </div>

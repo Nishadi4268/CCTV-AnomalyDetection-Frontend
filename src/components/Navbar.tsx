@@ -154,7 +154,7 @@ const Navbar = () => {
                     : ""
                 }`}
               >
-                <span className=" hover:text-[#1A3A6D] ">Culture</span>
+                <span className=" hover:text-[#1A3A6D] ">Security</span>
               </Link>
               <Link
                 to="/destination"
@@ -164,7 +164,7 @@ const Navbar = () => {
                     : ""
                 }`}
               >
-                <span className=" hover:text-[#1A3A6D] ">Destination</span>
+                <span className=" hover:text-[#1A3A6D] ">Review</span>
               </Link>
               <Link
                 to="/activities"
@@ -174,7 +174,7 @@ const Navbar = () => {
                     : ""
                 }`}
               >
-                <span className=" hover:text-[#1A3A6D]  ">Activities</span>
+                <span className=" hover:text-[#1A3A6D]  ">Plan</span>
               </Link>
             </div>
             {/* button */}
