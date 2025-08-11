@@ -17,9 +17,8 @@ import {
 
 function Signup() {
   const [email, setEmail] = useState("");
-  const [firstName, setFirstName] = useState('');
-const [lastName, setLastName] = useState('');
-
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
@@ -27,7 +26,11 @@ const [lastName, setLastName] = useState('');
   const [isEmailValid, setIsEmailValid] = useState(false);
   const [emailError, setEmailError] = useState("");
   const [pwError, setPWError] = useState("");
-const [showOTP, setShowOTP] = useState(false);
+  const [showOTP, setShowOTP] = useState(false);
+  const [otp, setOtp] = useState("");
+  const [isEmailVerified, setIsEmailVerified] = useState(false);
+  const [verificationMessage, setVerificationMessage] = useState("");
+  const [isSendingVerification, setIsSendingVerification] = useState(false);
 
   // Validate email format using RegEx
   useEffect(() => {
@@ -35,67 +38,145 @@ const [showOTP, setShowOTP] = useState(false);
     setIsEmailValid(emailRegex.test(email));
   }, [email]);
 
-const handleSignup = async (e: React.FormEvent<HTMLFormElement>) => {
-  e.preventDefault();
+  const handleSignup = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
 
-  // Basic validation
-  if (!isEmailValid) {
-    setEmailError("Wrong Email Format.");
-    return;
-  } else {
-    setEmailError("");
-  }
-
-  if (password !== confirmPassword) {
-    setPWError("Passwords do not match.");
-    return;
-  } else {
-    setPWError("");
-  }
-
-  if (!firstName || !lastName || !email || !password || !confirmPassword) {
-    setPWError("Please fill in all fields.");
-    return;
-  }
-
-  try {
-    const response = await fetch("http://localhost:5000/api/auth/signup", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      credentials: "include",
-      body: JSON.stringify({
-        firstName: firstName.trim(),
-        lastName: lastName.trim(),
-        email: email.toLowerCase().trim(),
-        password: password.trim(),
-        confirmPassword: confirmPassword.trim()
-      })
-    });
-
-    const data = await response.json();
-
-    if (!response.ok) {
-      throw new Error(data.message || "Signup failed");
-    }
-
-    console.log("Signup successful:", data);
-    navigate("/");
-  } catch (error) {
-    console.error("Signup error:", error);
-    if (error instanceof Error) {
-      if (error.message.includes("User already exists")) {
-        setEmailError(error.message);
-      } else {
-        setPWError(error.message || "Signup failed. Please try again.");
-      }
+    // Basic validation
+    if (!isEmailValid) {
+      setEmailError("Please verify your email first");
+      return;
     } else {
-      setPWError("Unexpected error occurred");
+      setEmailError("");
     }
-  }
-};
 
+    if (password !== confirmPassword) {
+      setPWError("Passwords do not match.");
+      return;
+    } else {
+      setPWError("");
+    }
+
+    if (!firstName || !lastName || !email || !password || !confirmPassword) {
+      setPWError("Please fill in all fields.");
+      return;
+    }
+
+    try {
+      const response = await fetch("http://localhost:5000/api/auth/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        credentials: "include",
+        body: JSON.stringify({
+          firstName: firstName.trim(),
+          lastName: lastName.trim(),
+          email: email.toLowerCase().trim(),
+          password: password.trim(),
+          confirmPassword: confirmPassword.trim()
+        })
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "Signup failed");
+      }
+
+      console.log("Signup successful:", data);
+      navigate("/");
+    } catch (error) {
+      console.error("Signup error:", error);
+      if (error instanceof Error) {
+        if (error.message.includes("User already exists")) {
+          setEmailError(error.message);
+        } else {
+          setPWError(error.message || "Signup failed. Please try again.");
+        }
+      } else {
+        setPWError("Unexpected error occurred");
+      }
+    }
+  };
+
+  const handleSendVerification = async () => {
+    if (!email) {
+      setEmailError("Please enter your email first");
+      return;
+    }
+
+    if (!isEmailValid) {
+      setEmailError("Wrong Email Format.");
+      return;
+    }
+
+    setIsSendingVerification(true);
+    setVerificationMessage("");
+
+    try {
+      const response = await fetch(
+        "http://localhost:5000/api/auth/send-verification-email",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ email })
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to send verification email");
+      }
+
+      setVerificationMessage("Verification email sent. Check your inbox.");
+      setShowOTP(true);
+    } catch (error) {
+      setVerificationMessage(
+        error instanceof Error
+          ? error.message
+          : "Failed to send verification email"
+      );
+    } finally {
+      setIsSendingVerification(false);
+    }
+  };
+
+  const handleVerifyOtp = async () => {
+    if (!otp || otp.length !== 6) {
+      setVerificationMessage("Please enter a valid 6-digit code");
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        "http://localhost:5000/api/auth/verify-email",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ email, token: otp })
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Verification failed");
+      }
+
+      setIsEmailVerified(true);
+      setVerificationMessage("Email verified successfully!");
+      setShowOTP(false);
+    } catch (error) {
+      setVerificationMessage(
+        error instanceof Error ? error.message : "Verification failed"
+      );
+    }
+  };
 
   useEffect(() => {
     const handleLoad = () => setLoading(false);
@@ -122,7 +203,7 @@ const handleSignup = async (e: React.FormEvent<HTMLFormElement>) => {
               Welcome
             </div>
             <div className="text-center flex flex-col font-productsans text-[20px] md:text-[32px] lg:hidden mb-[40px] ">
-              Welcome 
+              Welcome
               {/* to the <br />
               <span className="text-[36px] md:text-[60px] -mt-3 md:-mt-4">
                 Thabili
@@ -171,32 +252,70 @@ const handleSignup = async (e: React.FormEvent<HTMLFormElement>) => {
                       <Input
                         type="email"
                         placeholder="Enter Your Email"
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                          setEmail(e.target.value)
-                        }
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                          setEmail(e.target.value);
+                          setEmailError("");
+                        }}
                       />
-                      <h1 onClick={() => setShowOTP(true)}
-                      className="text-[12px] md:text-14 text-end font-semibold hover:cursor-pointer hover:opacity-70 underline text-blue-600">
-                        Verify
-                      </h1>
+                      {!isEmailVerified && (
+                        <button
+                          type="button"
+                          onClick={handleSendVerification}
+                          disabled={isSendingVerification || !isEmailValid}
+                          className="text-[12px] md:text-14 text-end font-semibold hover:cursor-pointer hover:opacity-70 underline text-blue-600 disabled:opacity-50"
+                        >
+                          {isSendingVerification
+                            ? "Sending..."
+                            : "Verify Email"}
+                        </button>
+                      )}
+
                       {/* OTP */}
                       {showOTP && (
-                      <div className="w-full ">
-                        <InputOTP maxLength={6}>
-                          <InputOTPGroup>
-                            <InputOTPSlot index={0} />
-                            <InputOTPSlot index={1} />
-                            <InputOTPSlot index={2} />
-                          </InputOTPGroup>
-                          <InputOTPSeparator />
-                          <InputOTPGroup>
-                            <InputOTPSlot index={3} />
-                            <InputOTPSlot index={4} />
-                            <InputOTPSlot index={5} />
-                          </InputOTPGroup>
-                        </InputOTP>
-                      </div>
-                        )}
+                        <div className="w-full ">
+                          <InputOTP
+                            maxLength={6}
+                            value={otp}
+                            onChange={(value) => setOtp(value)}
+                          >
+                            <InputOTPGroup>
+                              <InputOTPSlot index={0} />
+                              <InputOTPSlot index={1} />
+                              <InputOTPSlot index={2} />
+                            </InputOTPGroup>
+                            <InputOTPSeparator />
+                            <InputOTPGroup>
+                              <InputOTPSlot index={3} />
+                              <InputOTPSlot index={4} />
+                              <InputOTPSlot index={5} />
+                            </InputOTPGroup>
+                          </InputOTP>
+                          <button
+                            type="button"
+                            onClick={handleVerifyOtp}
+                            className="text-[12px] md:text-14 font-semibold hover:cursor-pointer hover:opacity-70 underline text-blue-600"
+                          >
+                            Verify Code
+                          </button>
+                        </div>
+                      )}
+                      {verificationMessage && (
+                        <p
+                          className={`text-sm ${
+                            verificationMessage.includes("success")
+                              ? "text-green-500"
+                              : "text-red-500"
+                          }`}
+                        >
+                          {verificationMessage}
+                        </p>
+                      )}
+                      {emailError && (
+                        <span className="text-red-500 text-sm font-productsansregular">
+                          {emailError}
+                        </span>
+                      )}
+
                       {emailError && (
                         <span className="text-red-500 text-sm font-productsansregular">
                           {emailError}
