@@ -192,7 +192,7 @@ function Signup() {
   return (
     <div className="flex flex-col md:flex w-full relative overflow-hidden">
       {loading && <PageLoader />}
-      <div className="grid grid-cols-1 items-center lg:grid-cols-2 grid-row-1 min-h-screen lg:h-screen  w-full bg-signup-bg bg-cover bg-center lg:bg-none ">
+      <div className="grid grid-cols-1 items-center lg:grid-cols-2 grid-row-1 min-h-screen lg:h-screen w-full bg-signup bg-cover bg-center lg:bg-none ">
         {/* left side */}
         <div
           className="h-full flex flex-col justify-center 2xl:items-center px-[15px] sm:px-[100px] xl:items-center md:px-[160px] lg:px-[60px] 2xl:px-[196px] 
@@ -200,14 +200,13 @@ function Signup() {
         >
           <div className="items-center flex flex-col lg:space-y-[30px] 2xl:space-y-[60px]  xl:w-[540px] ">
             <div className=" text-center font-productsans text-[32px] lg:flex hidden">
-              Welcome
+              Welcome to SafeVision
             </div>
             <div className="text-center flex flex-col font-productsans text-[20px] md:text-[32px] lg:hidden mb-[40px] ">
-              Welcome
-              {/* to the <br />
+              Welcome to <br />
               <span className="text-[36px] md:text-[60px] -mt-3 md:-mt-4">
-                Thabili
-              </span> */}
+                SafeVision
+              </span>
             </div>
             {/* content */}
             <div className="space-y-[53px] lg:space-y-[40px] w-full">
@@ -326,7 +325,6 @@ function Signup() {
                     {/* password */}
                     <div className="flex flex-col w-full space-y-[6px] md:space-y-[10px]">
                       <span className="text-[12px] md:text-[14px] font-productsansregular">
-                        {" "}
                         Password
                       </span>
                       <Input

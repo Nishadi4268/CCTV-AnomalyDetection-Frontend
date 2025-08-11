@@ -20,7 +20,7 @@ function ChangePW() {
   return (
     <div className="flex flex-col md:flex w-full relative mobile-background  ">
       {loading && <PageLoader />}{" "}
-      <div className="grid grid-cols-1 items-center lg:grid-cols-2 grid-row-1 min-h-screen lg:h-screen w-full bg-signup-bg bg-cover bg-center lg:bg-none ">
+      <div className="grid grid-cols-1 items-center lg:grid-cols-2 grid-row-1 min-h-screen lg:h-screen w-full mobile-background bg-cover bg-center lg:bg-none ">
         {/* content */}
         <div
           className="overflow-hidden text-black px-[15px] sm:px-[100px] md:px-[160px] lg:px-[60px] xl:px-[60px] 2xl:px-[196px] 

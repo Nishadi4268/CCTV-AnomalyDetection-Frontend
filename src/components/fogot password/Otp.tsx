@@ -2,6 +2,7 @@ import { SlArrowLeft } from "react-icons/sl";
 import { useNavigate } from "react-router-dom";
 import signin from "/images/signup/signin.png";
 import { useState } from "react";
+import { Input } from "@/components/Input";
 
 import {
   InputOTP,
@@ -13,8 +14,9 @@ function Otp() {
   const [otp, setOtp] = useState("");
   const navigate = useNavigate();
   const isOtpFilled = otp.length === 6;
+
   return (
-    <div className="grid lg:grid-cols-2 grid-row-1 min-h-screen lg:h-screen w-full md:px-[16px] lg:px-0">
+    <div className="grid lg:grid-cols-2 grid-row-1 min-h-screen lg:h-screen w-full md:px-[16px] lg:px-0 mobile-background bg-cover bg-center lg:bg-none ">
       <div
         className="overflow-hidden px-[15px] sm:px-[100px] md:px-[160px] lg:px-[60px] xl:px-[60px] 2xl:px-[196px] 
          justify-center 2xl:items-center py-[163px] md:py-[126px] lg:py-[40px] xl:py-[40px] 2xl:py-[100px] lg:space-y-[30px] 2xl:space-y-[60px] w-full flex flex-col"
@@ -26,6 +28,17 @@ function Otp() {
               onClick={() => navigate("/signin")}
             />
             <span className="text-[16px]">Enter OTP</span>
+          </div>
+          <div className="flex flex-col w-full xl:min-w-[450px] space-y-[6px] md:space-y-[10px]">
+            <span className="text-12 md:text-[14px] font-productsansregular">
+              Email
+            </span>
+            <Input
+              type="email"
+              placeholder="Enter Your Email"
+              // onChange={(e) => setEmail(e.target.value)}
+              // disabled={loading}
+            />
           </div>
           <div className="flex flex-col space-y-[30px] ">
             <div className="flex flex-col space-y-[12px]">
@@ -62,7 +75,9 @@ function Otp() {
             </div>
             <button
               className={`${
-                isOtpFilled ? "bg-[#FA9231] cursor-pointer" : "cursor-not-allowed"
+                isOtpFilled
+                  ? "bg-[#FA9231] cursor-pointer"
+                  : "cursor-not-allowed"
               } mt-[10px] bg-[#D9D9D9] h-[32px] lg:[40px] 2xl:h-[50px] font-productsans w-full py-[8px] 2xl:py-[15px] text-[12px] md:text-[14px] 2xl:text-[16px] 
           }`}
               onClick={() => navigate("/signin/change-password")}

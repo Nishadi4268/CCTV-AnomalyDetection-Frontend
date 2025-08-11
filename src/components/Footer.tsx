@@ -35,7 +35,7 @@ function Footer() {
 
           {/* logo */}
           <div className="w-1/3 flex items-center justify-center">
-            <img src="/icon.webp" className="w-[70%] 2xl:w-[50%]" />
+            <img src="/icon.webp" className="w-[70%] 2xl:w-[45%]" />
           </div>
 
           {/* contact for web */}

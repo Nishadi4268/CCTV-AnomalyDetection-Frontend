@@ -15,10 +15,6 @@ import des1 from "/images/home/des1.jpg";
 import des2 from "/images/home/des2.jpg";
 import des3 from "/images/home/des3.jpg";
 import des4 from "/images/home/des4.jpg";
-import sigiri from "/images/home/sigiri.png";
-import sigirimob from "/images/home/sigirimob.png";
-import CategorySwiper from "@/components/category/CategorySwiper";
-import { phases } from "@/constants/homeSwiperItems";
 import Reviewcompo from "@/components/Reviewcompo";
 import { phasesreview } from "@/constants/reviewItems";
 import { useState, useEffect, useRef } from "react";
@@ -107,14 +103,7 @@ const Home = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-  const [activePhase, setActivePhase] = useState(0);
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActivePhase((prev) => (prev + 1) % phases.length);
-    }, 3000);
-
-    return () => clearInterval(interval);
-  }, []);
+  
   const images = [
     { src: im1, text: "Abuse Detection" },
     { src: im2, text: "Shoplifting Detection" },
@@ -413,7 +402,7 @@ const Home = () => {
           <div
             data-aos="fade-up"
             data-aos-anchor-placement="top-center"
-            className="flex flex-col justify-center space-y-[28px] "
+            className="flex flex-col justify-center space-y-[28px] xl-1800:pb-10"
           >
             <div className="justify-center text-center flex font-productsans text-[16px] lg:text-[24px]">
               Smarter Surveillance That Learns From You{" "}

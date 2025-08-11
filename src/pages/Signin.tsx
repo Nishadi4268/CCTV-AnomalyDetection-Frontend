@@ -107,13 +107,13 @@ function Signin() {
           ) : (
             <div className="flex flex-col lg:space-y-[30px] 2xl:space-y-[60px] ">
               <div className="items-center justify-center text-center font-productsans text-[32px] lg:flex hidden mb-5">
-                Welcome
+                Welcome to SafeVision
               </div>
               <div className="text-center flex flex-col font-productsans text-[20px] md:text-[32px] lg:hidden mb-[40px]">
-                Welcome
-                {/* <span className="text-[36px] md:text-[60px] -mt-3 md:-mt-4 mb-5">
-                Thabili
-              </span> */}
+                Welcome to
+                <span className="text-[36px] md:text-[60px] -mt-3 md:-mt-4 mb-5">
+                SafeVision
+              </span>
               </div>
               {/* content */}
               <div className="space-y-[53px] lg:space-y-[80px] 2xl:w-[540px]">
