@@ -11,9 +11,78 @@ import {
 } from "@/components/custom-ui/InputOTP";
 
 function Otp() {
-  const [otp, setOtp] = useState(""); 
+  const [otp, setOtp] = useState("");
   const navigate = useNavigate();
   const isOtpFilled = otp.length === 6;
+  const [email, setEmail] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [otpSent, setOtpSent] = useState(false);
+const [otpError, setOtpError] = useState("");
+
+  const handleSendOtp = async () => {
+    if (!email) {
+      setEmailError("Please enter your email");
+      return;
+    }
+
+    try {
+      const response = await fetch("http://localhost:5000/api/send-otp", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email })
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.message || "Failed to send OTP");
+      }
+
+      setOtpSent(true);
+      setEmailError("");
+      console.log("OTP sent successfully");
+    } catch (error) {
+      console.error("OTP error:", error);
+      setEmailError("Failed to send OTP. Please try again.");
+    }
+  };
+
+  const handleVerifyOtp = async () => {
+  if (!isOtpFilled) {
+    setOtpError("Please enter the full 6-digit OTP");
+    return;
+  }
+
+  try {
+    const response = await fetch("http://localhost:5000/api/verify-otp", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, otp }),
+    });
+
+    const result = await response.json();
+
+    if (!response.ok) {
+      throw new Error(result.message || "OTP verification failed");
+    }
+
+    // OTP is valid
+    setOtpError("");
+    navigate("/signin/change-password");
+ } catch (error) {
+  console.error("OTP verification error:", error);
+
+  if (error instanceof Error) {
+    setOtpError(error.message || "Something went wrong. Please try again.");
+  } else {
+    setOtpError("Unexpected error occurred. Please try again.");
+  }
+}
+
+
+
+};
+
 
   return (
     <div className="grid lg:grid-cols-2 grid-row-1 min-h-screen lg:h-screen w-full md:px-[16px] lg:px-0 mobile-background bg-cover bg-center lg:bg-none ">
@@ -36,12 +105,28 @@ function Otp() {
             <Input
               type="email"
               placeholder="Enter Your Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               // onChange={(e) => setEmail(e.target.value)}
               // disabled={loading}
             />
-            <h1 className="w-full text-end text-12 md:text-14 text-red-500 italic underline cursor-pointer">
+            {emailError && (
+              <span className="text-red-500 text-[12px] italic">
+                {emailError}
+              </span>
+            )}
+            <h1
+              className="w-full text-end text-12 md:text-14 text-red-500 italic underline cursor-pointer"
+              onClick={handleSendOtp}
+            >
               Send OTP
             </h1>
+
+            {otpSent && (
+              <span className="text-green-600 text-[12px] italic">
+                OTP has been sent to your email.
+              </span>
+            )}
           </div>
           <div className="flex flex-col space-y-[30px] ">
             <div className="flex flex-col space-y-[12px]">
@@ -83,11 +168,14 @@ function Otp() {
                   : "cursor-not-allowed"
               } mt-[10px] bg-[#D9D9D9] h-[32px] lg:[40px] 2xl:h-[50px] font-productsans w-full py-[8px] 2xl:py-[15px] text-[12px] md:text-[14px] 2xl:text-[16px] 
           }`}
-              onClick={() => navigate("/signin/change-password")}
-              type="button"
+onClick={handleVerifyOtp}              type="button"
             >
               VERIFY OTP
             </button>
+            {otpError && (
+  <span className="text-red-500 text-[12px] italic">{otpError}</span>
+)}
+
           </div>
         </div>
       </div>
