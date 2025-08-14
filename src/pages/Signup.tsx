@@ -295,6 +295,7 @@ function Signup() {
                       {showOTP && (
                         <div className="w-full ">
                           <InputOTP
+                          
                             maxLength={6}
                             value={otp}
                             onChange={(value) => setOtp(value)}

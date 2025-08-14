@@ -8,10 +8,10 @@ import {
   InputOTP,
   InputOTPGroup,
   InputOTPSlot
-} from "@/components/ui/input-otp";
+} from "@/components/custom-ui/InputOTP";
 
 function Otp() {
-  const [otp, setOtp] = useState("");
+  const [otp, setOtp] = useState(""); 
   const navigate = useNavigate();
   const isOtpFilled = otp.length === 6;
 
