@@ -50,10 +50,10 @@ function Signup() {
     }
 
     if (!isEmailVerified) {
-    setEmailError("Please verify your email before signing up.");
-    return;
-  }
-  
+      setEmailError("Please verify your email before signing up.");
+      return;
+    }
+
     if (password !== confirmPassword) {
       setPWError("Passwords do not match.");
       return;
@@ -104,50 +104,67 @@ function Signup() {
     }
   };
 
-  const handleSendVerification = async () => {
-    if (!email) {
-      setEmailError("Please enter your email first");
-      return;
-    }
+ const handleSendVerification = async () => {
+  if (!email) {
+    setEmailError("Please enter your email first");
+    return;
+  }
 
-    if (!isEmailValid) {
-      setEmailError("Wrong Email Format.");
-      return;
-    }
+  if (!isEmailValid) {
+    setEmailError("Wrong Email Format.");
+    return;
+  }
 
-    setIsSendingVerification(true);
-    setVerificationMessage("");
+  setIsSendingVerification(true);
+  setVerificationMessage("");
+  setEmailError(""); // Clear previous errors
 
-    try {
-      const response = await fetch(
-        "http://localhost:5000/api/auth/send-verification-email",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({ email })
-        }
-      );
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || "Failed to send verification email");
+  try {
+    const response = await fetch(
+      "http://localhost:5000/api/auth/send-verification-email",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ email })
       }
+    );
 
-      setVerificationMessage("Verification email sent. Check your inbox.");
-      setShowOTP(true);
-    } catch (error) {
+    const data = await response.json();
+
+    if (!response.ok) {
+      // Check for "already exists" error in both message and error fields
+      const errorText = (data.error || data.message || "").toLowerCase();
+      if (errorText.includes("already exists")) {
+        setEmailError("Email already exists");
+        setVerificationMessage(""); // Clear verification message
+      } else {
+        setVerificationMessage(data.error || data.message || "Failed to send verification email");
+      }
+      return;
+    }
+
+    setVerificationMessage("Verification email sent. Check your inbox.");
+    setShowOTP(true);
+  } catch (error) {
+    if (
+      error instanceof Error &&
+      error.message.toLowerCase().includes("already exists")
+    ) {
+      setEmailError("Email already exists");
+      setVerificationMessage("");
+    } else {
       setVerificationMessage(
         error instanceof Error
           ? error.message
           : "Failed to send verification email"
       );
-    } finally {
-      setIsSendingVerification(false);
     }
-  };
+  } finally {
+    setIsSendingVerification(false);
+  }
+};
 
   const handleVerifyOtp = async () => {
     if (!otp || otp.length !== 6) {
