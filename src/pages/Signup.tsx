@@ -49,6 +49,11 @@ function Signup() {
       setEmailError("");
     }
 
+    if (!isEmailVerified) {
+    setEmailError("Please verify your email before signing up.");
+    return;
+  }
+  
     if (password !== confirmPassword) {
       setPWError("Passwords do not match.");
       return;
@@ -309,12 +314,6 @@ function Signup() {
                           {verificationMessage}
                         </p>
                       )}
-                      {emailError && (
-                        <span className="text-red-500 text-sm font-productsansregular">
-                          {emailError}
-                        </span>
-                      )}
-
                       {emailError && (
                         <span className="text-red-500 text-sm font-productsansregular">
                           {emailError}

@@ -19,7 +19,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
       <div className="relative w-full ">
         <input
           type={isPasswordField && isPasswordVisible ? "text" : type}
-          className="pl-[11px] md:pl-[17px] flex h-[40px] md:h-[50px] px-[22px] w-full bg-transparent border-[1px] 
+          className="pl-[11px] md:pl-[17px] flex h-[40px] md:h-[50px] px-[22px] w-full border-[1px] 
         hover:border-2 text-14 file:border-0 file:text-sm placeholder:text-muted-graycal focus-visible:outline-none 
         disabled:cursor-not-allowed disabled:opacity-50"
           ref={ref}
