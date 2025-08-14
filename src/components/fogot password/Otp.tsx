@@ -39,6 +39,9 @@ function Otp() {
               // onChange={(e) => setEmail(e.target.value)}
               // disabled={loading}
             />
+            <h1 className="w-full text-end text-12 md:text-14 text-red-500 italic underline cursor-pointer">
+              Send OTP
+            </h1>
           </div>
           <div className="flex flex-col space-y-[30px] ">
             <div className="flex flex-col space-y-[12px]">
