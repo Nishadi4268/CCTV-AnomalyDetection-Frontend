@@ -1,5 +1,4 @@
 import Button from "@/components/Button2";
-import { IoSearchOutline } from "react-icons/io5";
 import { HiArrowUpRight } from "react-icons/hi2";
 import { HiOutlineArrowNarrowRight } from "react-icons/hi";
 import image from "/images/home/img123.jpg";
@@ -179,18 +178,6 @@ const Home = () => {
                 technology for sustainable innovation and digital
                 transformation.
               </span>
-            </div>
-            <div className=" flex w-[281px] md:w-[264px] h-[24px] md:h-[40px] md:space-x-32">
-              <div className="flex justify-between w-full  border-b border-black items-center ">
-                <input
-                  placeholder="Search"
-                  title="Search"
-                  className="placeholder-black text-12 sm:text-14 focus:outline-none items-center"
-                />
-                <span className="flex cursor-pointer hover:opacity-85">
-                  <IoSearchOutline className="cursor-pointer md:w-[24px] md:h-[24px]" />
-                </span>
-              </div>
             </div>
           </div>
           <div className="flex relative items-center justify-center">

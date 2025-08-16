@@ -1,9 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import icon from "/icon.webp";
 import { CgMenuRight } from "react-icons/cg";
-// import { IoClose } from "react-icons/io5";
 import Button from "@/components/Button";
-// import { Link } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { GoHome } from "react-icons/go";
 import { BiCategoryAlt } from "react-icons/bi";
@@ -19,11 +17,39 @@ import { X } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
+  const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
+  const profileRef = useRef<HTMLDivElement>(null);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        profileRef.current &&
+        !profileRef.current.contains(event.target as Node)
+      ) {
+        setProfileDropdownOpen(false);
+      }
+    }
+    if (profileDropdownOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [profileDropdownOpen]);
   const [isMenuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const [activeSection, setActiveSection] = useState<string>("Home");
   const location = useLocation();
   const navigate = useNavigate();
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    // Check authentication status on mount and when location changes
+    setIsAuthenticated(!!localStorage.getItem("authToken"));
+  }, [location]);
   useEffect(() => {
     // Update active section based on the current path
     setActiveSection(location.pathname);
@@ -40,20 +66,14 @@ const Navbar = () => {
   useEffect(() => {
     const sections = [
       "/",
-      "/category",
-      "/packages",
-      "/culture",
-      "/destination",
-      "/activities"
+      "/product",
+      "/story",
+      "/security",
+      "/review",
+      "/plan"
     ];
 
     let currentSection = "";
-
-    // sections.forEach((section) => {
-    //   if (location.pathname.startsWith(section)) {
-    //     currentSection = section;
-    //   }
-    // });
 
     sections.forEach((section) => {
       if (location.pathname === section) {
@@ -67,17 +87,17 @@ const Navbar = () => {
 
     // Check if URL starts with "/cateclick/" and set it to "/category"
     if (location.pathname.startsWith("/cateclick")) {
-      currentSection = "/category";
+      currentSection = "/product";
     }
 
     // Highlight "Packages" when navigating to `/packclick/:id`
     if (location.pathname.startsWith("/packclick")) {
-      currentSection = "/packages";
+      currentSection = "/story";
     }
 
-    // Highlight "Activities" when navigating to `/actclick/:id`
+    // Highlight "plan" when navigating to `/actclick/:id`
     if (location.pathname.startsWith("/actclick")) {
-      currentSection = "/activities";
+      currentSection = "/plan";
     }
 
     setActiveSection(currentSection);
@@ -127,29 +147,29 @@ const Navbar = () => {
                 <span className=" hover:text-[#1A3A6D]">Home</span>
               </Link>
               <Link
-                to="/category"
+                to="/product"
                 className={`px-4 ${
-                  activeSection === "/category"
+                  activeSection === "/product"
                     ? "border-2 border-black  hover:border-[#1A3A6D] rounded-3xl "
                     : ""
                 }`}
               >
-                <span className=" hover:text-[#1A3A6D] ">Category</span>
+                <span className=" hover:text-[#1A3A6D] ">Product</span>
               </Link>
               <Link
-                to="/packages"
+                to="/story"
                 className={`px-4 ${
-                  activeSection === "/packages"
+                  activeSection === "/story"
                     ? "border-2 border-black  hover:border-[#1A3A6D] rounded-3xl "
                     : ""
                 }`}
               >
-                <span className=" hover:text-[#1A3A6D] ">Packages</span>
+                <span className=" hover:text-[#1A3A6D] ">Story</span>
               </Link>
               <Link
-                to="/culture"
+                to="/security"
                 className={`px-4 ${
-                  activeSection === "/culture"
+                  activeSection === "/security"
                     ? "border-2 border-black hover:border-[#1A3A6D] rounded-3xl "
                     : ""
                 }`}
@@ -157,9 +177,9 @@ const Navbar = () => {
                 <span className=" hover:text-[#1A3A6D] ">Security</span>
               </Link>
               <Link
-                to="/destination"
+                to="/review"
                 className={`px-4 ${
-                  activeSection === "/destination"
+                  activeSection === "/review"
                     ? "border-2 border-black hover:border-[#1A3A6D] rounded-3xl"
                     : ""
                 }`}
@@ -167,48 +187,101 @@ const Navbar = () => {
                 <span className=" hover:text-[#1A3A6D] ">Review</span>
               </Link>
               <Link
-                to="/activities"
+                to="/plan"
                 className={`px-4 ${
-                  activeSection === "/activities"
+                  activeSection === "/plan"
                     ? "border-2 border-black hover:border-[#1A3A6D] rounded-3xl"
                     : ""
                 }`}
               >
-                <span className=" hover:text-[#1A3A6D]  ">Plan</span>
+                <span className=" hover:text-[#1A3A6D]  ">plan</span>
               </Link>
             </div>
             {/* button */}
           </div>
           <div className="flex gap-x-[5px] lg:gap-x-[20px]">
-            <div className="hidden lg:flex ">
-              <Link
-                to="/signin"
-                className="text-nowrap hover:opacity-85 hover:translate-y-0.5"
+            {isAuthenticated ? (
+              <div
+                className="relative hidden lg:flex items-center gap-2"
+                ref={profileRef}
               >
-                <Button
-                  title="SIGN IN"
-                  borderColor="none"
-                  bgcolor="white"
-                  textcolor="black"
-                  hoverBgColor="black"
-                  hoverTextColor="white"
-                />
-              </Link>
-            </div>
-
-            <Link
-              to="/signup"
-              className="hidden lg:flex hover:opacity-85 hover:translate-y-0.5"
-            >
-              <Button
-                title="SIGN UP"
-                borderColor="none"
-                bgcolor="black"
-                textcolor="white"
-                hoverBgColor="white"
-                hoverTextColor="black"
-              />
-            </Link>
+                <button
+                  className="flex items-center gap-2 focus:outline-none"
+                  onClick={() => setProfileDropdownOpen((open) => !open)}
+                >
+                  <img
+                    src={account}
+                    alt="User"
+                    className="w-[28px] h-[28px] rounded-full"
+                  />
+                  <span className="font-productsans text-black">Profile</span>
+                </button>
+                {profileDropdownOpen && (
+                  <div className="absolute right-0 top-full mt-2 w-48 bg-white shadow-lg rounded-lg py-2 z-50 border border-gray-200">
+                    <Link
+                      to="/userprofile"
+                      className="block px-4 py-2 hover:bg-gray-100 text-black"
+                    >
+                      Edit Profile
+                    </Link>
+                    <Link
+                      to="/cctv-logs"
+                      className="block px-4 py-2 hover:bg-gray-100 text-black"
+                    >
+                      CCTV Logs
+                    </Link>
+                    <Link
+                      to="/cart"
+                      className="block px-4 py-2 hover:bg-gray-100 text-black"
+                    >
+                      Cart
+                    </Link>
+                    <button
+                      className="block w-full text-left px-4 py-2 hover:bg-gray-100 text-black"
+                      onClick={() => {
+                        localStorage.removeItem("authToken");
+                        setIsAuthenticated(false);
+                        navigate("/signin");
+                        setProfileDropdownOpen(false);
+                      }}
+                    >
+                      Sign Out
+                    </button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <>
+                <div className="hidden lg:flex ">
+                  <Link
+                    to="/signin"
+                    className="text-nowrap hover:opacity-85 hover:translate-y-0.5"
+                  >
+                    <Button
+                      title="SIGN IN"
+                      borderColor="none"
+                      bgcolor="white"
+                      textcolor="black"
+                      hoverBgColor="black"
+                      hoverTextColor="white"
+                    />
+                  </Link>
+                </div>
+                <Link
+                  to="/signup"
+                  className="hidden lg:flex hover:opacity-85 hover:translate-y-0.5"
+                >
+                  <Button
+                    title="SIGN UP"
+                    borderColor="none"
+                    bgcolor="black"
+                    textcolor="white"
+                    hoverBgColor="white"
+                    hoverTextColor="black"
+                  />
+                </Link>
+              </>
+            )}
           </div>
 
           {isMenuOpen || (
@@ -259,77 +332,71 @@ const Navbar = () => {
                   <span className="">Home</span>
                 </Link>
                 <Link
-                  to="/category"
+                  to="/product"
                   className={`flex flex-row items-center gap-[16px] px-[16px] w-full rounded-xl py-[8px] ${
-                    activeSection === "/category"
+                    activeSection === "/product"
                       ? "bg-[#1A3A6D] text-white"
                       : "text-[#535353]"
                   }`}
                 >
                   <BiCategoryAlt className="w-[20px] h-[20px]" />
-                  <span className="">Category</span>
+                  <span className="">Product</span>
                 </Link>
                 <Link
-                  to="/packages"
+                  to="/story"
                   className={`flex flex-row items-center gap-[16px] px-[16px] w-full rounded-xl py-[8px] ${
-                    activeSection === "/packages"
+                    activeSection === "/story"
                       ? "bg-[#1A3A6D] text-white"
                       : "text-[#535353]"
                   }`}
                 >
                   <img
-                    src={activeSection === "/packages" ? Wpackages : packageimg}
+                    src={activeSection === "/story" ? Wpackages : packageimg}
                     className="w-[20px] h-[20px]"
                   />
-                  <span className="">Packages</span>
+                  <span className="">Story</span>
                 </Link>
                 <Link
-                  to="/culture"
+                  to="/security"
                   className={`flex flex-row items-center gap-[16px] px-[16px] w-full rounded-xl py-[8px] ${
-                    activeSection === "/culture"
+                    activeSection === "/security"
                       ? "bg-[#1A3A6D] text-white"
                       : "text-[#535353]"
                   }`}
                 >
                   <MdOutlineFestival className="w-[20px] h-[20px]" />
-                  <span className="">Culture</span>
+                  <span className="">Security</span>
                 </Link>
                 <Link
-                  to="/destination"
+                  to="/review"
                   className={`flex flex-row items-center gap-[16px] px-[16px] w-full rounded-xl py-[8px] ${
-                    activeSection === "/destination"
+                    activeSection === "/review"
                       ? "bg-[#1A3A6D] text-white"
                       : "text-[#535353]"
                   }`}
                 >
                   <img
                     src={
-                      activeSection === "/destination"
-                        ? Wdestination
-                        : destination
+                      activeSection === "/review" ? Wdestination : destination
                     }
                     className="w-[20px] h-[20px]"
                   />
 
-                  <span className="">Destination</span>
+                  <span className="">Review</span>
                 </Link>
                 <Link
-                  to="/activities"
+                  to="/plan"
                   className={`flex flex-row items-center gap-[16px] px-[16px] w-full rounded-xl py-[8px] ${
-                    activeSection === "/activities"
+                    activeSection === "/lan"
                       ? "bg-[#1A3A6D] text-white"
                       : "text-[#535353]"
                   }`}
                 >
                   <img
-                    src={
-                      activeSection === "/activities"
-                        ? Wactivityimg
-                        : activityimg
-                    }
+                    src={activeSection === "/plan" ? Wactivityimg : activityimg}
                     className="w-[20px] h-[20px]"
                   />
-                  <span className="">Activities</span>
+                  <span className="">plan</span>
                 </Link>
                 <Link
                   to=""
@@ -345,29 +412,41 @@ const Navbar = () => {
               </div>
 
               <div className="flex flex-col gap-[20px] w-full px-[16px]">
-                <Link to="/signin" className="text-nowrap">
-                  <Button
-                    title="SIGN IN"
-                    borderColor="none"
-                    bgcolor="white"
-                    textcolor="black"
-                    className=" w-full text-14"
-                    hoverBgColor="black"
-                    hoverTextColor="white"
-                  />
-                </Link>
-
-                <Link to="/signup" className="flex ">
-                  <Button
-                    title="SIGN UP"
-                    borderColor="none"
-                    bgcolor="black"
-                    textcolor="white"
-                    className="w-full text-14 "
-                    hoverBgColor="white"
-                    hoverTextColor="black"
-                  />
-                </Link>
+                {isAuthenticated ? (
+                  <Link to="/userprofile" className="flex items-center gap-2">
+                    <img
+                      src={account}
+                      alt="User"
+                      className="w-[28px] h-[28px] rounded-full"
+                    />
+                    <span className="font-productsans text-black">Profile</span>
+                  </Link>
+                ) : (
+                  <>
+                    <Link to="/signin" className="text-nowrap">
+                      <Button
+                        title="SIGN IN"
+                        borderColor="none"
+                        bgcolor="white"
+                        textcolor="black"
+                        className=" w-full text-14"
+                        hoverBgColor="black"
+                        hoverTextColor="white"
+                      />
+                    </Link>
+                    <Link to="/signup" className="flex ">
+                      <Button
+                        title="SIGN UP"
+                        borderColor="none"
+                        bgcolor="black"
+                        textcolor="white"
+                        className="w-full text-14 "
+                        hoverBgColor="white"
+                        hoverTextColor="black"
+                      />
+                    </Link>
+                  </>
+                )}
               </div>
             </div>
           </div>

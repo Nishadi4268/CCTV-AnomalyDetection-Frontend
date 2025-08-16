@@ -4,8 +4,6 @@ import { useNavigate } from "react-router-dom";
 import ReviewCard from "@/components/user-profile/ReviewCard";
 import { phasesUser } from "@/constants/UserProfileItems";
 import { useState } from "react";
-import ReviewPopup from "@/components/user-profile/ReviewPopup";
-import EditProfile from "@/components/user-profile/EditProfile";
 // import EditProfile from "@/pages/UserProfile/EditProfile.tsx";
 import {
   Pagination,
@@ -21,18 +19,7 @@ function UserProfile() {
   const [currentPage, setCurrentPage] = useState(1);
   const navigate = useNavigate();
 
-  // State to control dialog visibility
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-
-  // Function to handle closing the popup
-  const handleClosePopup = () => {
-    setIsDialogOpen(false);
-  };
-  const [isEditOpen, setIsEditOpen] = useState(false);
-
-  const handleEditClick = () => {
-    setIsEditOpen(true); // open the EditProfile popup
-  };
+ 
   return (
     <div>
       {/* user details */}
@@ -66,16 +53,11 @@ function UserProfile() {
             </button>
             <button
               className="text-14 lg:text-16 text-white bg-black w-full sm:w-[134px] h-[38px] sm:h-[47px]"
-              onClick={handleEditClick}
+              // onClick={handleEditClick}
             >
               EDIT
             </button>
-            {isEditOpen && (
-              <EditProfile
-                open={isEditOpen}
-                onClose={() => setIsEditOpen(false)}
-              />
-            )}
+            
           </div>
         </div>
       </div>
@@ -101,18 +83,6 @@ function UserProfile() {
           </div>
         ))}
       </div>
-      {isDialogOpen && (
-        <>
-          {phasesUser.map((bookData, index) => (
-            <div key={index}>
-              <ReviewPopup
-                onClose={handleClosePopup}
-                onClick={() => navigate(`/review/${bookData.Id}`)}
-              />
-            </div>
-          ))}
-        </>
-      )}
       <Pagination className="w-full items-end justify-end mt-[60px]">
         <PaginationContent>
           <PaginationItem>
