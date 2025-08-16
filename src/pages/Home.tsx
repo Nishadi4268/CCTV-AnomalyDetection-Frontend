@@ -409,7 +409,7 @@ const Home = () => {
                 bgColor="black"
               />
             </div>
-            <div className="relative  flex-col hidden xs500:flex sm:hidden items-center w-full ">
+            <div className="relative flex-col hidden xs500:flex sm:hidden items-center w-full ">
               <Carousel
                 components={carddata}
                 slidesToShow={2}
@@ -436,7 +436,17 @@ const Home = () => {
             </div>
             <div className="flex flex-col lg:flex-row gap-y-[16px] lg:gap-y-0 lg:space-x-[46px] w-full items-center lg:items-stretch">
               <div className="flex flex-col w-full gap-y-4 lg:w-[584px] h-full lg:h-[340px] justify-between ">
-                <img src={cctvM} className="hidden md:flex rounded-2xl" />
+                <motion.img
+                  src={cctvM}
+                  className="hidden md:flex rounded-2xl"
+                  initial={{ opacity: 0, scale: 0.9, y: 40 }}
+                  whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                  whileHover={{
+                    scale: 1.05,
+                    boxShadow: "0 8px 32px rgba(26,58,109,0.25)"
+                  }}
+                  transition={{ duration: 0.7, type: "spring", bounce: 0.4 }}
+                />
                 <img src={cctv} className="flex md:hidden rounded-2xl" />
                 <div className="flex w-full justify-between items-end">
                   <span className="flex font-productsansregular text-[12px] lg:text-[14px]">
@@ -503,45 +513,85 @@ const Home = () => {
           <div
             data-aos="fade-up"
             data-aos-anchor-placement="top-center"
-            className="flex flex-col lg:flex-row w-full lg:gap-x-[46px] items-center lg:items-stretch"
+            className="flex flex-col lg:flex-row w-full lg:gap-x-[46px] items-center lg:items-stretch relative"
           >
-            <div className=" flex lg:hidden flex-col w-full space-y-[28px] ">
-              <span className="flex lg:hidden font-productsans text-[16px] text-center">
+            {/* Animated background shape */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8, y: 80 }}
+              whileInView={{ opacity: 0.15, scale: 1, y: 0 }}
+              transition={{ duration: 1.2, type: "spring" }}
+              className="absolute left-0 top-0 w-[300px] h-[300px] bg-gradient-to-br from-[#1A3A6D] via-[#3B82F6] to-[#FA9231] rounded-full blur-2xl z-0"
+            />
+            <div className="flex lg:hidden flex-col w-full space-y-[28px] z-10">
+              <motion.span
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, type: "spring" }}
+                className="flex lg:hidden font-productsans text-[16px] text-center"
+              >
                 Experience the Future of Intelligent Surveillance — Detect the
-                Undetectable{" "}
-              </span>
-              <div className="flex w-full border-4 xl:w-[55%]">
-                <img src={dis1} className="max-h-[400px] w-full" />
-              </div>
+                Undetectable
+              </motion.span>
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 1, type: "spring" }}
+                className="flex w-full border-4 xl:w-[55%]"
+              >
+                <img
+                  src={dis1}
+                  className="max-h-[400px] w-full rounded-2xl shadow-xl"
+                />
+              </motion.div>
             </div>
-            <div className="hidden lg:flex lg:w-[50%]">
-              <img src={dis1} />
-            </div>
-            <div className="flex flex-col justify-between w-full space-y-5 ">
+            <motion.div
+              initial={{ opacity: 0, x: -80 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 1, type: "spring" }}
+              className="hidden lg:flex lg:w-[50%] z-10"
+            >
+              <img src={dis1} className="rounded-2xl shadow-2xl" />
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, x: 80 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 1, type: "spring" }}
+              className="flex flex-col justify-between w-full space-y-5 z-10"
+            >
               <span className="hidden lg:flex font-productsans lg:text-[24px]">
                 Experience the Future of Intelligent Surveillance — Detect the
-                Undetectable{" "}
+                Undetectable
               </span>
-              <div className="flex flex-col lg:flex-row justify-center w-full space-y-[16px] lg:space-y-0 lg:space-x-10 ">
-                <div className="grid grid-cols-4 grid-rows-1 lg:grid-cols-2 lg:grid-rows-2 gap-x-[6px] lg:gap-y-[16px] xl:gap-x-[46px] xl:gap-y-[46px] lg:w-[45%]">
+              <div className="flex flex-col lg:flex-row justify-center w-full space-y-[16px] lg:space-y-0 lg:space-x-10">
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9, y: 40 }}
+                  whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                  transition={{ duration: 1, type: "spring" }}
+                  className="grid grid-cols-4 grid-rows-1 lg:grid-cols-2 lg:grid-rows-2 gap-x-[6px] lg:gap-y-[16px] xl:gap-x-[46px] xl:gap-y-[46px] lg:w-[45%]"
+                >
                   <img
                     src={des1}
-                    className="h-full md:w-[207px] object-cover rounded-[10px]"
+                    className="h-full md:w-[207px] object-cover rounded-[16px] shadow-lg hover:scale-105 transition-transform duration-300"
                   />
                   <img
                     src={des2}
-                    className="h-full md:w-[207px] object-cover rounded-[10px]"
+                    className="h-full md:w-[207px] object-cover rounded-[16px] shadow-lg hover:scale-105 transition-transform duration-300"
                   />
                   <img
                     src={des3}
-                    className="h-full md:w-[207px] object-cover rounded-[10px]"
+                    className="h-full md:w-[207px] object-cover rounded-[16px] shadow-lg hover:scale-105 transition-transform duration-300"
                   />
                   <img
                     src={des4}
-                    className="h-full md:w-[207px] object-cover rounded-[10px]"
+                    className="h-full md:w-[207px] object-cover rounded-[16px] shadow-lg hover:scale-105 transition-transform duration-300"
                   />
-                </div>
-                <div className="flex flex-col lg:w-[55%] space-y-4 justify-between items-start">
+                </motion.div>
+                <motion.div
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 1, type: "spring" }}
+                  className="flex flex-col lg:w-[55%] space-y-4 justify-between items-start"
+                >
                   <p className="font-productsansregular leading-6 2xl:leading-6 text-xs lg:text-[14px] justify-center text-justify w-full">
                     Our next-generation AI-powered CCTV anomaly detection system
                     goes beyond ordinary surveillance—it identifies unusual
@@ -568,13 +618,16 @@ const Home = () => {
                     monitor spaces—you protect them with precision.
                   </p>
                   <Link to="/destination">
-                    <div className="bg-[#1A3A6D] rounded-full p-[10px] hover:bg-black">
+                    <motion.div
+                      whileHover={{ scale: 1.1, backgroundColor: "#FA9231" }}
+                      className="bg-[#1A3A6D] rounded-full p-[10px] hover:bg-black transition-colors duration-300"
+                    >
                       <GoArrowUpRight className="text-white" />
-                    </div>
+                    </motion.div>
                   </Link>
-                </div>
+                </motion.div>
               </div>
-            </div>
+            </motion.div>
           </div>
           {/* review */}
           <div

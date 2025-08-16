@@ -1,7 +1,10 @@
 import user1 from "/images/userprofile/user1.png";
 import signin from "/images/signup/signin.png";
+import { useNavigate } from "react-router-dom";
 
 function UserProfile() {
+  const navigate = useNavigate();
+
   return (
     <div className="min-h-screen flex flex-col items-center justify-start bg-gradient-to-br from-[#cbdefd] via-[#e8f0fd] to-[#ffffff] relative overflow-hidden">
       {/* Background image with low opacity */}
@@ -41,10 +44,18 @@ function UserProfile() {
           </span>
         </h3>
         <div className="flex gap-4 mb-6">
-          <button className="px-6 py-2 rounded-xl bg-[#3B82F6] text-white font-semibold shadow hover:bg-[#1A3A6D] transition">
+          <button
+            className="px-6 py-2 rounded-xl bg-[#3B82F6] text-white font-semibold shadow hover:bg-[#1A3A6D] transition"
+            onClick={() => {
+              navigate("/signin/verifyotp");
+            }}
+          >
             CHANGE PASSWORD
           </button>
-          <button className="px-6 py-2 rounded-xl bg-white text-[#3B82F6] font-semibold border border-[#3B82F6] shadow hover:bg-[#E3F0FF] transition">
+          <button
+            className="px-6 py-2 rounded-xl bg-white text-[#3B82F6] font-semibold border border-[#3B82F6] shadow hover:bg-[#E3F0FF] transition"
+            onClick={() => navigate("/editprofile")}
+          >
             EDIT PROFILE
           </button>
         </div>

@@ -10,6 +10,7 @@ import Privacy from "./pages/privacy policies/Privacy";
 import ScrollToTop from "./components/ScrollToTop";
 import Cart from "./pages/Cart";
 import UserProfile from "./pages/UserProfile";
+import EditProfile from "./pages/EditProfile";
 // import ReviewPopup from "./components/user-profile/ReviewPopup";
 
 function App() {
@@ -37,6 +38,7 @@ function App() {
             <Route path="/terms&condition" element={<Terms />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/userprofile" element={<UserProfile />} />
+            <Route path="/editprofile" element={<EditProfile/>} />
           </Routes>
         </div>
       </div>{" "}

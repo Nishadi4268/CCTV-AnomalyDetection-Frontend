@@ -58,8 +58,8 @@ const Reviewcompo: React.FC<ReviewcompoProps> = ({
   };
 
   return (
-    <div className="flex flex-col items-center justify-center bg-gradient-to-br from-[#1A3A6D] via-[#232946] to-[#0F172A] shadow-xl rounded-2xl p-8 m-4 w-full xl-1500:w-[340px] min-h-[320px] relative transition-transform duration-300 hover:scale-105">
-      <div className="flex flex-col items-center w-full">
+    <div className="flex flex-col items-center justify-center bg-gradient-to-br from-[#1A3A6D] via-[#232946] to-[#0F172A] shadow-xl rounded-2xl p-8 m-4 w-full xl-1500:w-[340px] min-h-[320px] h-[340px] relative transition-transform duration-300 hover:scale-105">
+      <div className="flex flex-col items-center w-full flex-1">
         <div className="flex justify-center mb-2">
           <img
             src={image}
@@ -72,7 +72,7 @@ const Reviewcompo: React.FC<ReviewcompoProps> = ({
         </span>
         <span className="flex justify-center mb-2">{renderStars(rates)}</span>
       </div>
-      <div className="flex flex-col items-center justify-center mt-2">
+      <div className="flex flex-col items-center justify-center mt-2 flex-1">
         <span className="absolute left-4 top-4 text-[#FA9231] text-5xl opacity-30">
           “
         </span>

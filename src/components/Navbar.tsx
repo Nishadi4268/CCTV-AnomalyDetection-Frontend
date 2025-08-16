@@ -70,7 +70,7 @@ const Navbar = () => {
       "/product",
       "/story",
       "/security",
-      "/review",
+      "/cctv-logs",
       "/plan"
     ];
 
@@ -181,14 +181,14 @@ const Navbar = () => {
                 <span className=" hover:text-[#1A3A6D] ">Security</span>
               </Link>
               <Link
-                to="/review"
+                to="/cctv-logs"
                 className={`px-4 ${
-                  activeSection === "/review"
+                  activeSection === "/cctv-logs"
                     ? "border-2 border-black hover:border-[#1A3A6D] rounded-3xl"
                     : ""
                 }`}
               >
-                <span className=" hover:text-[#1A3A6D] ">Review</span>
+                <span className=" hover:text-[#1A3A6D] ">CCTV logs</span>
               </Link>
               <Link
                 to="/plan"
@@ -413,28 +413,21 @@ const Navbar = () => {
                   />
                   <span className="">plan</span>
                 </Link>
-                <Link
-                  to=""
-                  className={`flex flex-row items-center gap-[16px] px-[16px] w-full rounded-xl py-[8px] ${
-                    activeSection === ""
-                      ? "bg-[#1A3A6D] text-white"
-                      : "text-[#535353]"
-                  }`}
-                >
-                  <img src={account} className="w-[22px] h-[22px]" />
-                  <span className="">My Account</span>
-                </Link>
               </div>
 
               <div className="flex flex-col gap-[20px] w-full px-[16px]">
                 {isAuthenticated ? (
-                  <Link to="/userprofile" className="flex items-center gap-2">
+                  <Link to="/userprofile" 
+                  className={`flex flex-row items-center gap-[16px] px-[16px] w-full rounded-xl py-[8px] ${
+                    activeSection === ""
+                      ? "bg-[#1A3A6D] text-white"
+                      : "text-[#535353]"
+                  }`}>
                     <img
                       src={account}
-                      alt="User"
                       className="w-[28px] h-[28px] rounded-full"
                     />
-                    <span className="font-productsans text-black">Profile</span>
+                    <span className="font-productsans">Profile</span>
                   </Link>
                 ) : (
                   <>
