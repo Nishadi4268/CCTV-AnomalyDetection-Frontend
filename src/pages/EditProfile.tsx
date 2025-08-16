@@ -4,7 +4,8 @@ import user1 from "/images/userprofile/user1.png";
 
 function EditProfile() {
   const navigate = useNavigate();
-  const [name, setName] = useState("Ema Rawles");
+  const [firstname, setfirstName] = useState("Ema");
+    const [lastname, setlastName] = useState("Rawles");
   const [email, setEmail] = useState("emarawles@gmail.com");
   const [location, setLocation] = useState("Colombo, Sri Lanka");
 
@@ -37,15 +38,26 @@ function EditProfile() {
           />
         </div>
         <form className="w-full flex flex-col gap-4">
-          <label className="font-semibold text-[#1A3A6D]">
-            Name
-            <input
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              className="w-full mt-2 p-2 rounded-lg border border-blue-200 bg-white/80 focus:ring-2 focus:ring-[#3B82F6] transition"
-            />
-          </label>
+          <div className="flex flex-row w-full gap-4">
+            <label className="font-semibold text-[#1A3A6D]">
+              First Name
+              <input
+                type="text"
+                value={firstname}
+                onChange={(e) => setfirstName(e.target.value)}
+                className="w-full mt-2 p-2 rounded-lg border border-blue-200 bg-white/80 focus:ring-2 focus:ring-[#3B82F6] transition"
+              />
+            </label>
+            <label className="font-semibold text-[#1A3A6D]">
+              Last Name
+              <input
+                type="text"
+                value={lastname}
+                onChange={(e) => setlastName(e.target.value)}
+                className="w-full mt-2 p-2 rounded-lg border border-blue-200 bg-white/80 focus:ring-2 focus:ring-[#3B82F6] transition"
+              />
+            </label>
+          </div>
           <label className="font-semibold text-[#1A3A6D]">
             Email
             <input
