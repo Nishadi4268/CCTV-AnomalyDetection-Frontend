@@ -204,7 +204,7 @@ const Home = () => {
                 providing continuous vigilance, and actionable insights <br />
                 for a truly secure environment.
               </span>
-              <Link to="/destination">
+              <Link to="/product">
                 <button className="flex items-center  transition-transform duration-300 hover:translate-y-1 hover:opacity-90 space-x-3 w-[158px] h-[28px] md:h-auto md:w-[30%] lg:w-[24%] xl:w-[14%] justify-center py-1 sm:py-2 bg-white font-productsans text-[#1A3A6D]">
                   <span className="text-[12px] md:text-[14px]"> Explore</span>
                   <HiOutlineArrowNarrowRight className="w-4 md:w-6 h-6" />
@@ -307,7 +307,7 @@ const Home = () => {
                 AI-Driven Surveillance: Accurate Anomaly Detection, Anytime,
                 Anywhere{" "}
               </span>
-              <Link to="/packages" className="flex justify-center mt-4 ">
+              <Link to="/security" className="flex justify-center mt-4 ">
                 <motion.button className="w-[171px] h-[38px] border border-black text-black font-bold text-[14px] transition-all duration-300 ease-in-out hover:bg-blue-900 hover:text-white hover:border-blue-900 hover:shadow-lg hover:scale-105 cursor-pointer">
                   More
                 </motion.button>
@@ -315,7 +315,7 @@ const Home = () => {
             </div>
             <div className="flex flex-col xl:hidden text-center justify-center items-center space-y-4 ">
               <div className="flex justify-center ">
-                <Link to="/packages">
+                <Link to="/security">
                   <motion.button className="flex w-[158px] h-[28px]  border justify-center items-center border-black text-xs hover:opacity-75 cursor-pointer">
                     More
                   </motion.button>
@@ -340,7 +340,7 @@ const Home = () => {
                   using our intelligent CCTV monitoring system.
                 </span>
               </div>
-              <Link to="/destination">
+              <Link to="/product">
                 <div
                   className="flex hover:opacity-90 
                 font-productsansregular space-x-48 lg:space-x-32 items-center justify-between border-b w-[280px] h-[24px] md:w-[264px] md:h-[40px] border-black "
@@ -604,20 +604,19 @@ const Home = () => {
                     accident occurs, the system instantly notifies emergency
                     services like 1990 Suwa Seriya. In the case of a fire, it
                     sends precise location details directly to the Fire
-                    Department. This rapid, automated response can save lives,
-                    prevent damage, and ensure public safety. Our solution is
-                    designed with unmatched accuracy and confidence, minimizing
-                    false alarms while ensuring that every real threat gets the
-                    attention it deserves. Whether safeguarding public transport
-                    stations, hospitals, schools, or residential areas, our
-                    surveillance doesn’t just watch—it acts. By combining
-                    real-time monitoring, intelligent feedback learning, and
-                    direct emergency integration, we provide a security system
-                    that isn’t just reactive—it’s proactive, predictive, and
-                    relentlessly reliable. With our technology, you don’t just
-                    monitor spaces—you protect them with precision.
+                    Department. Our solution is designed with unmatched accuracy
+                    and confidence, minimizing false alarms while ensuring that
+                    every real threat gets the attention it deserves. Whether
+                    safeguarding public transport stations, hospitals, schools,
+                    or residential areas, our surveillance doesn’t just watch—it
+                    acts. By combining real-time monitoring, intelligent
+                    feedback learning, and direct emergency integration, we
+                    provide a security system that isn’t just reactive—it’s
+                    proactive, predictive, and relentlessly reliable. With our
+                    technology, you don’t just monitor spaces—you protect them
+                    with precision.
                   </p>
-                  <Link to="/destination">
+                  <Link to="/product">
                     <motion.div
                       whileHover={{ scale: 1.1, backgroundColor: "#FA9231" }}
                       className="bg-[#1A3A6D] rounded-full p-[10px] hover:bg-black transition-colors duration-300"

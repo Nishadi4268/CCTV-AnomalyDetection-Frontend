@@ -119,9 +119,28 @@ const Navbar = () => {
       document.body.style.overflow = "";
     };
   }, [isMenuOpen]);
+
   useEffect(() => {
-    document.body.style.backgroundColor = "#bae6fd3f";
-  }, []);
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        profileRef.current &&
+        !profileRef.current.contains(event.target as Node) &&
+        // Additional check to ensure we're not clicking on the profile button itself
+        !(event.target as Element).closest(".profile-button")
+      ) {
+        setProfileDropdownOpen(false);
+      }
+    }
+
+    // Only add listener if dropdown is open
+    if (profileDropdownOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [profileDropdownOpen]);
 
   return (
     <div className="top-0 left-0 w-full z-50 relative">
@@ -221,7 +240,7 @@ const Navbar = () => {
                   <span className="font-productsans text-black">Profile</span>
                 </button>
                 {profileDropdownOpen && (
-                  <div className="absolute right-0 top-full mt-2 w-56 bg-gradient-to-br from-[#3B82F6] via-[#60A5FA] to-[#1E40AF] shadow-xl rounded-xl py-3 z-50 border-none overflow-hidden border border-blue-100">
+                  <div className="absolute right-0 top-full mt-2 w-56 bg-gradient-to-br from-[#0f326b] via-[#a7c9f0] to-[#072074] shadow-xl rounded-xl py-3 z-50 border-none overflow-hidden border border-blue-100">
                     <div className="flex flex-col">
                       <Link
                         to="/userprofile"
@@ -417,12 +436,14 @@ const Navbar = () => {
 
               <div className="flex flex-col gap-[20px] w-full px-[16px]">
                 {isAuthenticated ? (
-                  <Link to="/userprofile" 
-                  className={`flex flex-row items-center gap-[16px] px-[16px] w-full rounded-xl py-[8px] ${
-                    activeSection === ""
-                      ? "bg-[#1A3A6D] text-white"
-                      : "text-[#535353]"
-                  }`}>
+                  <Link
+                    to="/userprofile"
+                    className={`flex flex-row items-center gap-[16px] px-[16px] w-full rounded-xl py-[8px] ${
+                      activeSection === ""
+                        ? "bg-[#1A3A6D] text-white"
+                        : "text-[#535353]"
+                    }`}
+                  >
                     <img
                       src={account}
                       className="w-[28px] h-[28px] rounded-full"
