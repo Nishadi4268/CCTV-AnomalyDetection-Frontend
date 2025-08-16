@@ -1,124 +1,122 @@
-import Filter from "@/components/Filter";
 import user1 from "/images/userprofile/user1.png";
-import { useNavigate } from "react-router-dom";
-import ReviewCard from "@/components/user-profile/ReviewCard";
-import { phasesUser } from "@/constants/UserProfileItems";
-import { useState } from "react";
-// import EditProfile from "@/pages/UserProfile/EditProfile.tsx";
-import {
-  Pagination,
-  PaginationContent,
-  PaginationEllipsis,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious
-} from "@/components/ui/pagination";
+import signin from "/images/signup/signin.png";
 
 function UserProfile() {
-  const [currentPage, setCurrentPage] = useState(1);
-  const navigate = useNavigate();
-
- 
   return (
-    <div>
-      {/* user details */}
-      <div>
-        {/* welcome */}
-        <div className="md:gap-[10px] flex flex-col mb-[30px]">
-          <h1 className="font-productsans text-16 md:text-24 ">Welcome, Ema</h1>
-          <h1 className="font-helvet text-[#B0B0B0] text-14 md:text-16">
-            Tue, 07 Feb 2025
-          </h1>
-          <div className="mt-[12px] lg:mt-[30px] border-[1px] md:border-[2px] border-[#F3F3F3]"></div>
+    <div className="min-h-screen flex flex-col items-center justify-start bg-gradient-to-br from-[#cbdefd] via-[#e8f0fd] to-[#ffffff] relative overflow-hidden">
+      {/* Background image with low opacity */}
+      <img
+        src={signin}
+        alt="Background"
+        className="absolute inset-0 w-full h-full object-cover opacity-5 z-0 pointer-events-none"
+      />
+      {/* Glassmorphism card and content */}
+      <div className="relative z-10 w-full max-w-2xl mx-auto mt-12 p-8 rounded-3xl shadow-2xl backdrop-blur-lg bg-white/60 border border-blue-100 flex flex-col items-center animate-fade-in">
+        {/* Avatar */}
+        <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-[#3B82F6] shadow-lg mb-4 flex items-center justify-center">
+          <img
+            src={user1}
+            alt="User Avatar"
+            className="w-full h-full object-cover"
+          />
         </div>
-
-        {/* user image */}
-        <div className="flex flex-col sm:flex-row justify-between gap-[20px]">
-          <div className="flex flex-row gap-[13px] lg:gap-[23px]">
-            <img src={user1} className="w-[50px] lg:w-[100px]" />
-            <div className="font-helvet flex flex-col items-start justify-center">
-              <h1>Ema Rawles</h1>
-              <h1 className="text-10 lg:text-14 text-black opacity-50">
-                emarawles@gmail.com
-              </h1>
-            </div>
-          </div>
-          <div className="gap-[10px] sm:gap-[20px] flex flex-col sm:flex-row items-center">
-            <button
-              className="text-14 lg:text-16 text-white bg-black w-full sm:w-[211px] h-[38px] sm:h-[47px]"
-              onClick={() => navigate("/signup")}
-            >
-              CHANGE PASSWORD
-            </button>
-            <button
-              className="text-14 lg:text-16 text-white bg-black w-full sm:w-[134px] h-[38px] sm:h-[47px]"
-              // onClick={handleEditClick}
-            >
-              EDIT
-            </button>
-            
-          </div>
-        </div>
-      </div>
-
-      <div className="mt-[40px] lg:mt-[100px] flex flex-col gap-[40px]">
-        <h1 className="font-productsans text-16 md:text-24 ">
-          Explore Booking History
+        <h1 className="font-productsans text-2xl font-bold text-[#1A3A6D] mb-1 flex items-center gap-2">
+          Ema Rawles
+          <span
+            className="inline-block w-4 h-4 bg-green-400 rounded-full animate-pulse"
+            title="Active"
+          ></span>
         </h1>
-        <Filter />
+        <h2 className="text-base text-[#3B82F6] mb-2">emarawles@gmail.com</h2>
+        <h3 className="text-sm text-gray-400 mb-2 flex items-center gap-2">
+          <span>Last login: Tue, 07 Feb 2025</span>
+          <span className="inline-flex items-center gap-1 text-[#1A3A6D]">
+            <svg width="16" height="16" fill="none" viewBox="0 0 24 24">
+              <path
+                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6l5.25 3.15-.75 1.23L11 13V7z"
+                fill="#1A3A6D"
+              />
+            </svg>
+            Colombo, Sri Lanka
+          </span>
+        </h3>
+        <div className="flex gap-4 mb-6">
+          <button className="px-6 py-2 rounded-xl bg-[#3B82F6] text-white font-semibold shadow hover:bg-[#1A3A6D] transition">
+            CHANGE PASSWORD
+          </button>
+          <button className="px-6 py-2 rounded-xl bg-white text-[#3B82F6] font-semibold border border-[#3B82F6] shadow hover:bg-[#E3F0FF] transition">
+            EDIT PROFILE
+          </button>
+        </div>
+        {/* Quick Links */}
+        <div className="flex gap-6 mb-6">
+          <a
+            href="/cctv-logs"
+            className="flex items-center gap-2 px-4 py-2 rounded-lg bg-[#E3F0FF] text-[#1A3A6D] font-semibold shadow hover:bg-[#B6D6F2] transition"
+          >
+            <svg width="20" height="20" fill="none" viewBox="0 0 24 24">
+              <path
+                d="M4 4h16v2H4zm0 4h16v2H4zm0 4h10v2H4zm0 4h10v2H4z"
+                fill="#1A3A6D"
+              />
+            </svg>
+            CCTV Logs
+          </a>
+          <a
+            href="/anomaly-events"
+            className="flex items-center gap-2 px-4 py-2 rounded-lg bg-[#E3F0FF] text-[#FA9231] font-semibold shadow hover:bg-[#B6D6F2] transition"
+          >
+            <svg width="20" height="20" fill="none" viewBox="0 0 24 24">
+              <path
+                d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 15h-2v-2h2zm0-4h-2V7h2z"
+                fill="#FA9231"
+              />
+            </svg>
+            Anomaly Events
+          </a>
+        </div>
+        {/* Recent Activity Logs */}
+        <div className="w-full mb-6">
+          <h4 className="text-lg font-semibold text-[#1A3A6D] mb-2">
+            Recent Activity Logs
+          </h4>
+          <ul className="bg-white/80 rounded-xl p-4 shadow divide-y divide-blue-50">
+            <li className="py-2 flex items-center gap-2">
+              <span className="inline-block w-2 h-2 bg-[#FA9231] rounded-full animate-pulse"></span>
+              <span className="text-sm text-gray-700">
+                Anomaly detected at Camera 3 - 10:32 AM
+              </span>
+              <span className="ml-auto text-xs text-[#FA9231] font-bold">
+                Critical
+              </span>
+            </li>
+            <li className="py-2 flex items-center gap-2">
+              <span className="inline-block w-2 h-2 bg-[#3B82F6] rounded-full"></span>
+              <span className="text-sm text-gray-700">
+                Normal activity at Camera 1 - 09:15 AM
+              </span>
+              <span className="ml-auto text-xs text-[#3B82F6] font-bold">
+                Info
+              </span>
+            </li>
+            <li className="py-2 flex items-center gap-2">
+              <span className="inline-block w-2 h-2 bg-[#1A3A6D] rounded-full"></span>
+              <span className="text-sm text-gray-700">
+                User login from new device - 08:50 AM
+              </span>
+              <span className="ml-auto text-xs text-[#1A3A6D] font-bold">
+                Security
+              </span>
+            </li>
+          </ul>
+        </div>
       </div>
-
-      <div
-        data-aos="fade-up"
-        data-aos-anchor-placement="top-center"
-        className="mt-[18px] lg:mt-[60px] grid gap-[28px] md:gap-[40px] grid-cols-1 md-610:grid-cols-2 lg-1000:grid-cols-3 xl-1500:grid-cols-4 xl-1800:grid-cols-5 w-full"
-      >
-        {phasesUser.slice().map((bookData, index) => (
-          <div key={index}>
-            <ReviewCard
-              BookData={{ ...bookData, Id: bookData.Id?.toString() ?? "" }}
-              onClick={() => navigate(`/review/${bookData.Id}`)}
-            />
-          </div>
-        ))}
+      {/* Booking/Activity History Section */}
+      <div className="w-full max-w-5xl mx-auto mt-16">
+        <h1 className="font-productsans text-xl md:text-2xl text-[#1A3A6D] mb-6">
+          Anomaly & Booking History
+        </h1>
       </div>
-      <Pagination className="w-full items-end justify-end mt-[60px]">
-        <PaginationContent>
-          <PaginationItem>
-            <PaginationPrevious
-              className="text-gray-400"
-              href="#"
-              onClick={() => currentPage > 1 && setCurrentPage(currentPage - 1)}
-            />
-          </PaginationItem>
-          {[1, 2, 3].map((page) => (
-            <PaginationItem key={page}>
-              <PaginationLink
-                href="#"
-                onClick={() => setCurrentPage(page)}
-                className={`${
-                  currentPage === page
-                    ? "text-black font-semibold"
-                    : "text-gray-400"
-                }`}
-              >
-                {page}
-              </PaginationLink>
-            </PaginationItem>
-          ))}
-          <PaginationItem>
-            <PaginationEllipsis />
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationNext
-              className="text-gray-400"
-              href="#"
-              onClick={() => setCurrentPage(currentPage + 1)}
-            />
-          </PaginationItem>
-        </PaginationContent>
-      </Pagination>
     </div>
   );
 }

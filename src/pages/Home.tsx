@@ -102,7 +102,7 @@ const Home = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-  
+
   const images = [
     { src: im1, text: "Abuse Detection" },
     { src: im2, text: "Shoplifting Detection" },
@@ -121,7 +121,6 @@ const Home = () => {
       <Reviewcompo
         name={phase.name}
         image={phase.image}
-        imageMobile={phase.imageMobile}
         rates={Number(phase.rates)}
         msg={phase.msg}
       />
@@ -351,15 +350,56 @@ const Home = () => {
                 </div>
               </Link>
             </div>
-            {contentData.cards.map((card) => (
-              <div className="hidden lg:flex">
-                <Card
-                  key={card.id}
-                  image={card.imageSrc}
-                  title={card.title}
-                  description={card.description}
-                />
-              </div>
+            {contentData.cards.map((card, idx) => (
+              <motion.div
+                key={card.id}
+                className="hidden lg:flex"
+                initial={{ opacity: 0, y: 60, scale: 0.9 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                whileHover={{
+                  scale: 1.05,
+                  boxShadow: "0 8px 32px rgba(26,58,109,0.25)"
+                }}
+                transition={{
+                  duration: 0.7,
+                  type: "spring",
+                  bounce: 0.4,
+                  delay: idx * 0.15
+                }}
+              >
+                <div className="bg-gradient-to-br from-[#1A3A6D] via-[#232946] to-[#0F172A] shadow-2xl rounded-2xl p-6 w-full h-full flex flex-col items-center justify-center border border-[#FA9231] relative overflow-hidden">
+                  <motion.img
+                    src={card.imageSrc}
+                    alt={card.title}
+                    className="w-[90px] h-[90px] object-cover rounded-full border-4 border-[#FA9231] mb-4 shadow-lg"
+                    initial={{ scale: 0.8, rotate: -10 }}
+                    whileHover={{ scale: 1, rotate: 0 }}
+                    transition={{ duration: 0.5, type: "spring" }}
+                  />
+                  <motion.h3
+                    className="text-white text-lg font-bold mb-2 text-center font-productsans"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.2 }}
+                  >
+                    {card.title}
+                  </motion.h3>
+                  <motion.p
+                    className="text-white text-sm text-center font-productsansregular mb-2"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.3 }}
+                  >
+                    {card.description}
+                  </motion.p>
+                  <motion.div
+                    className="absolute top-0 right-0 w-16 h-16 bg-[#FA9231] rounded-bl-2xl opacity-20"
+                    initial={{ x: 40, y: -40, opacity: 0 }}
+                    animate={{ x: 0, y: 0, opacity: 0.2 }}
+                    transition={{ duration: 1.2, delay: 0.5 }}
+                  />
+                </div>
+              </motion.div>
             ))}
 
             <div className="relative flex-col hidden sm:flex lg:hidden items-center w-full ">
@@ -471,7 +511,7 @@ const Home = () => {
                 Undetectable{" "}
               </span>
               <div className="flex w-full border-4 xl:w-[55%]">
-                <img src={dis1} className="max-h-[400px] w-full"/>
+                <img src={dis1} className="max-h-[400px] w-full" />
               </div>
             </div>
             <div className="hidden lg:flex lg:w-[50%]">

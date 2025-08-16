@@ -18,6 +18,7 @@ import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
+
   const profileRef = useRef<HTMLDivElement>(null);
 
   // Close dropdown when clicking outside
@@ -118,6 +119,9 @@ const Navbar = () => {
       document.body.style.overflow = "";
     };
   }, [isMenuOpen]);
+  useEffect(() => {
+    document.body.style.backgroundColor = "#bae6fd3f";
+  }, []);
 
   return (
     <div className="top-0 left-0 w-full z-50 relative">
@@ -217,36 +221,47 @@ const Navbar = () => {
                   <span className="font-productsans text-black">Profile</span>
                 </button>
                 {profileDropdownOpen && (
-                  <div className="absolute right-0 top-full mt-2 w-48 bg-white shadow-lg rounded-lg py-2 z-50 border border-gray-200">
-                    <Link
-                      to="/userprofile"
-                      className="block px-4 py-2 hover:bg-gray-100 text-black"
-                    >
-                      Edit Profile
-                    </Link>
-                    <Link
-                      to="/cctv-logs"
-                      className="block px-4 py-2 hover:bg-gray-100 text-black"
-                    >
-                      CCTV Logs
-                    </Link>
-                    <Link
-                      to="/cart"
-                      className="block px-4 py-2 hover:bg-gray-100 text-black"
-                    >
-                      Cart
-                    </Link>
-                    <button
-                      className="block w-full text-left px-4 py-2 hover:bg-gray-100 text-black"
-                      onClick={() => {
-                        localStorage.removeItem("authToken");
-                        setIsAuthenticated(false);
-                        navigate("/signin");
-                        setProfileDropdownOpen(false);
-                      }}
-                    >
-                      Sign Out
-                    </button>
+                  <div className="absolute right-0 top-full mt-2 w-56 bg-gradient-to-br from-[#3B82F6] via-[#60A5FA] to-[#1E40AF] shadow-xl rounded-xl py-3 z-50 border-none overflow-hidden border border-blue-100">
+                    <div className="flex flex-col">
+                      <Link
+                        to="/userprofile"
+                        className="block px-5 py-3 text-white font-semibold transition-all duration-300 hover:bg-[#2563EB] hover:text-white rounded-md"
+                        style={{
+                          borderBottom: "1px solid rgba(59,130,246,0.08)"
+                        }}
+                      >
+                        Edit Profile
+                      </Link>
+                      <Link
+                        to="/cctv-logs"
+                        className="block px-5 py-3 text-white font-semibold transition-all duration-300 hover:bg-[#1A3A6D] hover:text-white rounded-md"
+                        style={{
+                          borderBottom: "1px solid rgba(59,130,246,0.08)"
+                        }}
+                      >
+                        CCTV Logs
+                      </Link>
+                      <Link
+                        to="/cart"
+                        className="block px-5 py-3 text-white font-semibold transition-all duration-300 hover:bg-[#3B82F6] hover:text-white rounded-md"
+                        style={{
+                          borderBottom: "1px solid rgba(59,130,246,0.08)"
+                        }}
+                      >
+                        Cart
+                      </Link>
+                      <button
+                        className="block w-full text-left px-5 py-3 text-white font-semibold transition-all duration-300 hover:bg-[#1E293B] hover:text-white rounded-md"
+                        onClick={() => {
+                          localStorage.removeItem("authToken");
+                          setIsAuthenticated(false);
+                          navigate("/signin");
+                          setProfileDropdownOpen(false);
+                        }}
+                      >
+                        Sign Out
+                      </button>
+                    </div>
                   </div>
                 )}
               </div>
