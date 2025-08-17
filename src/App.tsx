@@ -11,6 +11,7 @@ import ScrollToTop from "./components/ScrollToTop";
 import Cart from "./pages/Cart";
 import UserProfile from "./pages/UserProfile";
 import EditProfile from "./pages/EditProfile";
+import Product from "./pages/Product";
 // import ReviewPopup from "./components/user-profile/ReviewPopup";
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/privacy" element={<Privacy />} />
+            <Route path="/product" element={<Product />} />
             <Route path="/error" element={<Error404 />} />
             <Route path="/story" element={<Story />} />
             <Route path="/terms&condition" element={<Terms />} />
