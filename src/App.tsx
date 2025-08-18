@@ -12,6 +12,7 @@ import Cart from "./pages/Cart";
 import UserProfile from "./pages/UserProfile";
 import EditProfile from "./pages/EditProfile";
 import Product from "./pages/Product";
+import Payment from "./components/product/Payment";
 // import ReviewPopup from "./components/user-profile/ReviewPopup";
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/product" element={<Product />} />
+            <Route path="/payment" element={<Payment />} />
             <Route path="/error" element={<Error404 />} />
             <Route path="/story" element={<Story />} />
             <Route path="/terms&condition" element={<Terms />} />

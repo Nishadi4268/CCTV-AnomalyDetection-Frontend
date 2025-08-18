@@ -2,91 +2,97 @@ export const PrivacyItems = [
   {
     title: "Data Covered By This Privacy Policy",
     description:
-      "This Privacy Policy governs the personal information collected by Thabili, located at No 22, Weligama, Matara, Sri Lanka, through our website https://thabili.lk/, social media pages, and other channels. It applies to all guests, visitors, and users of our services."
+      "This Privacy Policy governs all data collected by SafeVision CCTV Security System, including video footage, user account information, and system usage data. It applies to all customers, administrators, and users of our AI-powered surveillance services."
   },
   {
-    title: "Personal Information We Collect",
+    title: "Information We Collect",
     description: (
       <>
-        We collect information you voluntarily provide, including:
+        SafeVision collects and processes the following data:
         <ul className="list-disc ml-6 gap-2 flex flex-col mt-2">
-          <li>
-            Name, gender, and contact information (email, phone number,
-            address).
-          </li>
-          <li>Payment details (credit/debit card information).</li>
-          <li>Identification documents (passport, ID).</li>
-          <li>
-            Travel details and preferences (check-in/out dates, dietary needs,
-            special occasions).
-          </li>
-          <li>
-            Guest feedback and service preferences (e.g., room types, amenities,
-            and activities).
-          </li>
-          <li>
-            Security data such as images from CCTV cameras in public areas.
-          </li>
+          <li>Video footage from connected security cameras</li>
+          <li>Anomaly detection data (fire, accidents, security breaches)</li>
+          <li>User account information (name, email, contact details)</li>
+          <li>Device information (IP addresses, MAC addresses)</li>
+          <li>System activity logs and access records</li>
+          <li>Emergency contact information for alert notifications</li>
         </ul>
       </>
     )
   },
   {
-    title: "Instances Where We Collect Your Data",
+    title: "When We Collect Your Data",
     description: (
       <>
-        We collect your data in the following instances:
+        Data collection occurs during:
         <ul className="list-disc ml-6 gap-2 flex flex-col mt-2">
-          <li>Booking and registration for stays or events.</li>
-          <li>On-site services such as dining, spa, and concierge.</li>
-          <li>Guest feedback and participation in surveys or promotions.</li>
+          <li>Camera activation and continuous surveillance</li>
+          <li>System registration and account setup</li>
+          <li>Anomaly detection events</li>
+          <li>User logins and administrative access</li>
+          <li>System maintenance and updates</li>
         </ul>
       </>
     )
   },
   {
-    title: "Use Of Cookies",
+    title: "Data Encryption & Security",
     description:
-      "Our website uses cookies to enhance your experience. Cookies help us analyze website performance, tailor content to your preferences, and improve our services. You can adjust your browser settings to refuse cookies; however, certain features of the site may not function optimally."
+      "All video footage is encrypted with AES-256 encryption both in transit and at rest. We implement multi-layered security protocols including two-factor authentication, regular security audits, and strict access controls to protect your surveillance data."
   },
   {
-    title: "How We Protect Your Information",
-    description:
-      "We implement appropriate technical, organizational, and security measures to safeguard your personal data against unauthorized access, alteration, or loss. Despite our efforts, no system is completely secure. If you suspect your information has been compromised, please contact us immediately."
+    title: "How We Use Your Data",
+    description: (
+      <>
+        Your data is used exclusively for:
+        <ul className="list-disc ml-6 gap-2 flex flex-col mt-2">
+          <li>Real-time security monitoring and threat detection</li>
+          <li>Automated emergency service alerts</li>
+          <li>System performance optimization</li>
+          <li>AI model improvement (anonymized data only)</li>
+          <li>Account management and customer support</li>
+        </ul>
+      </>
+    )
   },
   {
-    title: "Retention Period For Personal Data",
+    title: "Data Retention Policy",
     description:
-      "Providing accurate personal information is necessary for us to confirm and process bookings, deliver tailored services, and meet regulatory requirements. Without such data, we may be unable to fulfill your requests."
+      "Video footage is retained for 30 days by default, with extended storage options available. Account data is maintained while active and for 90 days post-cancellation. All data is permanently deleted after retention periods expire, except when required for legal investigations."
   },
   {
-    title: "Data Covered By This Privacy Policy",
+    title: "Third-Party Data Sharing",
     description:
-      "Providing accurate personal information is necessary for us to confirm and process bookings, deliver tailored services, and meet regulatory requirements. Without such data, we may be unable to fulfill your requests."
+      "We only share data with emergency services (police, fire department) during active incidents. No surveillance footage is shared with third parties for marketing or commercial purposes. Subprocessors handling our infrastructure are contractually bound to equivalent privacy standards."
   },
   {
-    title: "Instances Where We Collect Your Data",
-    description:
-      "Providing accurate personal information is necessary for us to confirm and process bookings, deliver tailored services, and meet regulatory requirements. Without such data, we may be unable to fulfill your requests."
+    title: "Your Data Rights",
+    description: (
+      <>
+        You have the right to:
+        <ul className="list-disc ml-6 gap-2 flex flex-col mt-2">
+          <li>Access and download your stored footage</li>
+          <li>Request deletion of personal account data</li>
+          <li>Modify notification preferences</li>
+          <li>Export system configuration data</li>
+          <li>Lodge complaints about data handling</li>
+        </ul>
+      </>
+    )
   },
   {
-    title: "Data Covered By This Privacy Policy",
+    title: "Legal Compliance",
     description:
-      "Providing accurate personal information is necessary for us to confirm and process bookings, deliver tailored services, and meet regulatory requirements. Without such data, we may be unable to fulfill your requests."
+      "SafeVision complies with all applicable surveillance and data protection laws. We may preserve and disclose data when legally required, such as for criminal investigations. All such requests are carefully vetted for legal validity."
   },
   {
-    title: "Data Covered By This Privacy Policy",
+    title: "Policy Updates",
     description:
-      "Providing accurate personal information is necessary for us to confirm and process bookings, deliver tailored services, and meet regulatory requirements. Without such data, we may be unable to fulfill your requests."
+      "We will notify users 30 days in advance of significant policy changes through email and in-app alerts. Continued use of SafeVision services after updates constitutes acceptance of the revised terms."
   },
   {
-    title: "Data Covered By This Privacy Policy",
+    title: "Contact Information",
     description:
-      "Providing accurate personal information is necessary for us to confirm and process bookings, deliver tailored services, and meet regulatory requirements. Without such data, we may be unable to fulfill your requests."
-  },
-  {
-    title: "Instances Where We Collect Your Data",
-    description:
-      "Providing accurate personal information is necessary for us to confirm and process bookings, deliver tailored services, and meet regulatory requirements. Without such data, we may be unable to fulfill your requests."
-  },
+      "For privacy concerns or data requests, contact our Data Protection Officer at privacy@safevision.com or +1 (800) 555-SAFE (7233). Emergency security support is available 24/7 at support@safevision.com."
+  }
 ];

@@ -1,5 +1,6 @@
 import check from "/icon.webp";
 import { MdArrowDropUp } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 
 interface PlanCardProps {
   title: string;
@@ -20,6 +21,19 @@ const PlanCard: React.FC<PlanCardProps> = ({
   variant = "default",
   onClose
 }) => {
+  const navigate = useNavigate();
+  const handleBuyNow = () => {
+    navigate("/payment", {
+      state: {
+        title,
+        duration,
+        price,
+        features,
+        desc
+      }
+    });
+  };
+
   const alternativeStyle = {
     background: "linear-gradient(340deg, #327BC1, #469EFD99 5%, #2E1839)"
   };
@@ -30,6 +44,7 @@ const PlanCard: React.FC<PlanCardProps> = ({
 
   const gradientStyle =
     variant === "alternative" ? alternativeStyle : defaultStyle;
+
   return (
     <div
       style={variant === "alternative" ? gradientStyle : undefined}
@@ -59,7 +74,7 @@ const PlanCard: React.FC<PlanCardProps> = ({
             </div>
           )}
           <div className="">
-                        <h1 className="text-[35px] mb-4 text-center ">{duration}</h1>
+            <h1 className="text-[35px] mb-4 text-center ">{duration}</h1>
 
             <h1 className="text-[25px] mb-4 text-center">{title}</h1>
             <p className="text-[1.125rem]">{desc}</p>
@@ -92,10 +107,13 @@ const PlanCard: React.FC<PlanCardProps> = ({
           </div>
         </div>
         <div className="flex flex-col sm:flex-row gap-[10px] items-center w-full justify-center sm:justify-between mt-10 xl:mt-[46px]">
-          <button className="text-black hover:opacity-90 px-[39px] py-[21px] bg-white rounded-[60px] tracking-wider w-[195px] h-[55px] flex justify-center items-center text-center">
+          <button className="text-black hover:opacity-90 2xl:px-[39px] py-[21px] bg-white rounded-[60px] tracking-wider w-[195px] h-[55px] flex justify-center items-center text-center">
             Add to Cart
           </button>
-          <button className="text-black hover:opacity-90 px-[39px] py-[21px] bg-white rounded-[60px] tracking-wider w-[195px] h-[55px] flex justify-center items-center text-center">
+          <button
+            onClick={handleBuyNow}
+            className="text-black hover:opacity-90 2xl:px-[39px] py-[21px] bg-white rounded-[60px] tracking-wider w-[195px] h-[55px] flex justify-center items-center text-center"
+          >
             Buy Now
           </button>
         </div>
