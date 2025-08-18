@@ -1,3 +1,5 @@
+// nishadis576@gmail.com
+
 import signin from "/images/signup/signin.png";
 import apple from "/images/signup/apple.png";
 import google from "/images/signup/google.png";
