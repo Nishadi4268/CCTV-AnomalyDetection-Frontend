@@ -72,8 +72,11 @@ function Signin() {
       console.log("Sign-in successful:", data);
 
       if (data.token) {
-        localStorage.setItem("authToken", data.token);
-      }
+  localStorage.setItem("authToken", data.token);
+  console.log("Generated Token:", data.token); // ✅ check token in console
+  console.log("Token in localStorage:", localStorage.getItem("authToken")); // ✅ verify storage
+}
+
 
       navigate("/");
     } catch (error) {

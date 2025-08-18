@@ -1,10 +1,77 @@
 import user1 from "/images/userprofile/user1.png";
 import signin from "/images/signup/signin.png";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 function UserProfile() {
   const navigate = useNavigate();
+  const [userData, setUserData] = useState({
+    firstName: "Loading...",
+    lastName: "",
+    email: "Loading...",
+    lastLogin: new Date().toISOString(),
+    location: "Unknown"
+  });
+  const [loading, setLoading] = useState(true);
 
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const token = localStorage.getItem("authToken");
+        if (!token) {
+          console.error("No token found in localStorage");
+          setLoading(false);
+          return;
+        }
+
+        // Call backend route correctly
+        const response = await axios.get(
+          "http://localhost:5000/api/auth/user",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          }
+        );
+
+        console.log("Frontend received:", response.data); // check received data
+
+        // Access user data inside response.data.data
+        const user = response.data.data;
+
+        setUserData({
+          firstName: user.firstName || "User",
+          lastName: user.lastName || "",
+          email: user.email || "Not available",
+          lastLogin: user.lastLogin || new Date().toISOString(),
+          location: user.location || "Unknown"
+        });
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUserData();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+      </div>
+    );
+  }
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+      </div>
+    );
+  }
   return (
     <div className="min-h-screen flex flex-col items-center justify-start bg-gradient-to-br from-[#cbdefd] via-[#e8f0fd] to-[#ffffff] relative overflow-hidden">
       {/* Background image with low opacity */}
@@ -24,15 +91,15 @@ function UserProfile() {
           />
         </div>
         <h1 className="font-productsans text-2xl font-bold text-[#1A3A6D] mb-1 flex items-center gap-2">
-          Ema Rawles
+          {userData.firstName} {userData.lastName}
           <span
             className="inline-block w-4 h-4 bg-green-400 rounded-full animate-pulse"
             title="Active"
           ></span>
         </h1>
-        <h2 className="text-base text-[#3B82F6] mb-2">emarawles@gmail.com</h2>
+        <h2 className="text-base text-[#3B82F6] mb-2">{userData.email}</h2>
         <h3 className="text-sm text-gray-400 mb-2 flex items-center gap-2">
-          <span>Last login: Tue, 07 Feb 2025</span>
+          <span>Last login: {userData.lastLogin}</span>
           <span className="inline-flex items-center gap-1 text-[#1A3A6D]">
             <svg width="16" height="16" fill="none" viewBox="0 0 24 24">
               <path
@@ -40,7 +107,7 @@ function UserProfile() {
                 fill="#1A3A6D"
               />
             </svg>
-            Colombo, Sri Lanka
+            {userData.location}
           </span>
         </h3>
         <div className="flex gap-4 mb-6">
