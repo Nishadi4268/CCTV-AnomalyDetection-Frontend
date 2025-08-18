@@ -21,7 +21,7 @@ const cards: Card[] = [
   {
     title: "Basic Surveillance Plan",
     duration: "6 Months",
-    price: "9.99/month",
+    price: "9.99",
     //   total: "$59.94",
     desc: "Essential CCTV monitoring with basic anomaly detection capabilities.",
     features: [
@@ -144,12 +144,13 @@ const Product = () => {
       </div>
 
       <ProductDetails />
+
       {/* subscription part */}
-      <div className="bg-black rounded-[1rem] 3xl:py-[50px] 3xl:px-[192px]">
+      <div className="bg-blue-950 p-[20px] rounded-[1rem] 3xl:py-[50px] 3xl:px-[192px]">
         <h1 className="text-[35px] md:text-[3.125rem] text-center pb-5 lg:pb-[50px]">
           Subscription Plans
         </h1>
-        <div className="hidden lg:flex lg:gap-6 2xl:gap-[50px]">
+        <div className="hidden xl:flex gap-6 w-full">
           {/* for desktop */}
           {cards.map((card, index) => (
             <div key={index} className="w-full">
@@ -165,74 +166,48 @@ const Product = () => {
           ))}
         </div>
 
-        {/* for tabs */}
-        <div className="hidden md:grid grid-cols-2 gap-4 lg:hidden">
-          {cards.map((card, index) => (
-            <div
-              key={index}
-              className={`
-        w-full
-        ${index === 2 ? "md:col-span-2 md:justify-self-center md:w-1/2" : ""}
-      `}
-            >
-              <PlanCard
-                title={card.title}
-                duration={card.duration}
-                desc={card.desc}
-                price={card.price}
-                features={card.features}
-                variant={index === 1 ? "alternative" : "default"}
-              />
-            </div>
-          ))}
-        </div>
-
         {/* for mobile screens */}
-        <div className="md:hidden flex flex-col gap-2">
-          {cards.map((card, index) => (
-            <div
-              key={index}
-              className="flex flex-col gap-2 border border-[#FFFFFF33] rounded-[1.875rem] overflow-hidden relative"
-            >
-              {/* Toggle Button */}
-              {openIndex !== index && (
-                <div className="relative">
-                  <button
-                    onClick={() => handleToggle(index)}
-                    className="w-full justify-between text-left bg-[#1A1A1E] p-[10px] text-white transition"
-                  >
-                    <div className="relative flex h-[53px] justify-between items-center p-5 bg-gradient-to-b from-[#303135] to-[#111112] rounded-[1.25rem]">
-                      <div
-                        className="h-8 w-12 pt-[1px] pl-[1px] absolute left-0 top-0 rounded-tl-[1.25rem] bg-gradient-to-tr from-[#4A97F200] via-[#AC61FD] to-[#469EFD]"
-                        style={{
-                          WebkitClipPath:
-                            "polygon(0 0, 100% 0, 100% 1px, 1px 1px, 1px 100%, 0 100%)"
-                        }}
-                      />
-                      <p>{card.title}</p>
-                      <MdArrowDropDown size={29} />
-                    </div>
-                  </button>
-                </div>
-              )}
+<div className="xl:hidden flex flex-col gap-4">
+  {/* Dropdown Selector */}
+  <div className="relative mb-4 transition-all duration-300 hover:scale-[1.01] focus-within:scale-[1.02]">
+  <select
+    onChange={(e) => setOpenIndex(Number(e.target.value))}
+    value={openIndex !== null ? openIndex : ""}
+    className="w-full p-4 bg-gradient-to-b from-[#303135] to-[#111112] rounded-[1.25rem] text-white appearance-none border border-[#FFFFFF33] focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300 hover:border-blue-400 hover:shadow-lg hover:shadow-blue-500/20"
+  >
+    <option value="" disabled className="bg-[#111112]">
+      Select a Plan
+    </option>
+    {cards.map((card, index) => (
+      <option 
+        key={index} 
+        value={index}
+        className="bg-[#111112] hover:bg-blue-950 rounded-3xl transition-colors duration-200"
+      >
+        {card.title} - ${card.price}/{card.duration}
+      </option>
+    ))}
+  </select>
+  <div className={`absolute right-4 top-1/2 transform -translate-y-1/2 pointer-events-none transition-transform duration-300 ${openIndex !== null ? 'rotate-180' : ''}`}>
+    <MdArrowDropDown size={24} />
+  </div>
+</div>
 
-              {/* Accordion Content */}
-              {openIndex === index && (
-                <div className="">
-                  <PlanCard
-                    title={card.title}
-                    duration={card.duration}
-                    desc={card.desc}
-                    price={card.price}
-                    features={card.features}
-                    variant={index === 1 ? "alternative" : "default"}
-                    onClose={() => setOpenIndex(null)}
-                  />
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
+  {/* Selected Plan Card */}
+  {openIndex !== null && (
+    <div className="border border-[#FFFFFF33] rounded-[1.875rem] overflow-hidden">
+      <PlanCard
+        title={cards[openIndex].title}
+        duration={cards[openIndex].duration}
+        desc={cards[openIndex].desc}
+        price={cards[openIndex].price}
+        features={cards[openIndex].features}
+        variant={openIndex === 1 ? "alternative" : "default"}
+        onClose={() => setOpenIndex(null)}
+      />
+    </div>
+  )}
+</div>
       </div>
     </div>
   );

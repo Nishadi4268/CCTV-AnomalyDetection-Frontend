@@ -33,7 +33,7 @@ const PlanCard: React.FC<PlanCardProps> = ({
   return (
     <div
       style={variant === "alternative" ? gradientStyle : undefined}
-      className="rounded-[1.875rem] w-full h-full p-[10px] border border-[#FFFFFF33] mx-auto xssm:max-w-[640px] sm:max-w-[768px] md:max-w-none"
+      className="rounded-[1.875rem] hover:scale-[1.02] duration-500 w-full h-full p-[10px] border border-[#FFFFFF33] mx-auto xssm:max-w-[640px] sm:max-w-[768px] xl:max-w-[325px] 2xl:max-w-[400px] xl-1800:max-w-none"
     >
       <div
         style={gradientStyle}
@@ -61,7 +61,7 @@ const PlanCard: React.FC<PlanCardProps> = ({
           <div className="">
                         <h1 className="text-[35px] mb-4 text-center ">{duration}</h1>
 
-            <h1 className="text-[35px] mb-4">{title}</h1>
+            <h1 className="text-[25px] mb-4 text-center">{title}</h1>
             <p className="text-[1.125rem]">{desc}</p>
           </div>
 
@@ -70,7 +70,7 @@ const PlanCard: React.FC<PlanCardProps> = ({
           <div>
             <p className="text-[35px] h-14">
               <span className="align-super">$</span>
-              <span className="text-[3.125rem]">{price}/mo</span>
+              <span className="text-[3.125rem] font-bold">{price}</span>
             </p>
 
             <p className="text-[1.125rem] pt-3 pb-5 md:pb-[30px]">
@@ -91,9 +91,12 @@ const PlanCard: React.FC<PlanCardProps> = ({
             </div>
           </div>
         </div>
-        <div className="mt-10 xl:mt-[46px]">
+        <div className="flex flex-col sm:flex-row gap-[10px] items-center w-full justify-center sm:justify-between mt-10 xl:mt-[46px]">
           <button className="text-black hover:opacity-90 px-[39px] py-[21px] bg-white rounded-[60px] tracking-wider w-[195px] h-[55px] flex justify-center items-center text-center">
-            Get Started
+            Add to Cart
+          </button>
+          <button className="text-black hover:opacity-90 px-[39px] py-[21px] bg-white rounded-[60px] tracking-wider w-[195px] h-[55px] flex justify-center items-center text-center">
+            Buy Now
           </button>
         </div>
       </div>
