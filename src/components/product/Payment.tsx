@@ -70,7 +70,7 @@ const Payment: React.FC = () => {
   <div className="grid grid-cols-1 md:grid-cols-3 gap-[20px] mt-[15px] w-full max-w-[1000px]">
     
     {/* Card 1 - Secure Payment */}
-    <div className="bg-white p-[25px] rounded-xl shadow-sm border border-[#E0F0FF]">
+    <div className="hover:scale-[1.01] hover:bg-slate-300 duration-300 bg-slate-200 p-[25px] rounded-xl shadow-sm border border-[#E0F0FF]">
       <div className="text-[#3B82F6] text-24 mb-[12px]">🔐</div>
       <h2 className="text-18 font-bold mb-[10px]">Bank-Level Security</h2>
       <p className="text-14 text-[#1A3A6D]/80">
@@ -79,7 +79,7 @@ const Payment: React.FC = () => {
     </div>
     
     {/* Card 2 - Plan Validation */}
-    <div className="bg-white p-[25px] rounded-xl shadow-sm border border-[#E0F0FF]">
+    <div className="hover:scale-[1.01] hover:bg-slate-300 duration-300 bg-slate-200 p-[25px] rounded-xl shadow-sm border border-[#E0F0FF]">
       <div className="text-[#3B82F6] text-24 mb-[12px]">✅</div>
       <h2 className="text-18 font-bold mb-[10px]">Plan Details</h2>
       <p className="text-14 text-[#1A3A6D]/80">
@@ -88,7 +88,7 @@ const Payment: React.FC = () => {
     </div>
     
     {/* Card 3 - Instant Activation */}
-    <div className="bg-white p-[25px] rounded-xl shadow-sm border border-[#E0F0FF]">
+    <div className="hover:scale-[1.01] hover:bg-slate-300 duration-300 bg-slate-200 p-[25px] rounded-xl shadow-sm border border-[#E0F0FF]">
       <div className="text-[#3B82F6] text-24 mb-[12px]">⚡</div>
       <h2 className="text-18 font-bold mb-[10px]">Instant Activation</h2>
       <p className="text-14 text-[#1A3A6D]/80">
